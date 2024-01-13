@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+
+<!--
+ // WEBSITE: https://themefisher.com
+ // TWITTER: https://twitter.com/themefisher
+ // FACEBOOK: https://www.facebook.com/themefisher
+ // GITHUB: https://github.com/themefisher/
+-->
+
+<html class="no-js">
+
+<head>
+  <!-- Basic Page Needs
+        ================================================== -->
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="icon" href="favicon.ico">
+  <title>Julian Prieto | Lab 4</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="">
+  <!-- Mobile Specific Metas
+        ================================================== -->
+  <meta name="format-detection" content="telephone=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <!-- Template CSS Files
+        ================================================== -->
+  <!-- Twitter Bootstrs CSS -->
+  <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
+  <!-- Ionicons Fonts Css -->
+  <link rel="stylesheet" href="plugins/ionicons/ionicons.min.css">
+  <!-- animate css -->
+  <link rel="stylesheet" href="plugins/animate-css/animate.css">
+  <!-- Hero area slider css-->
+  <link rel="stylesheet" href="plugins/slider/slider.css">
+  <!-- slick slider -->
+  <link rel="stylesheet" href="plugins/slick/slick.css">
+  <!-- Fancybox -->
+  <link rel="stylesheet" href="plugins/facncybox/jquery.fancybox.css">
+  <!-- hover -->
+  <link rel="stylesheet" href="plugins/hover/hover-min.css">
+  <!-- template main css file -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <!--
+        ==================================================
+        Header Section Start
+        ================================================== -->
+  <section class="top-bar animated-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="index.html">
+              <!-- <img class="logo" src="./images/logo.jpg" alt="logo"> -->
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="index.html">Home
+                    <span class="sr-only">(current)</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="about.html">About</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--
+==================================================
+Global Page Section Start
+================================================== -->
+  <section class="global-page-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="block">
+            <h2>Lab 4: The IMU</h2>
+            <div class="portfolio-meta">
+              <span>February 22nd, 2023</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/#Page header-->
+
+  <!-- work details part start -->
+  <section class="work-single">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div style="display: flex; justify-content: center;" class="work-single-image">
+            <!-- Work Single Image -->
+            <img style="height: 330px" src="images\Lab_4_profile.png" alt="work-single-image">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <!-- work single Content -->
+          <div class="work-single-content">
+            <h2 style=" text-align: center">
+              INTRODUCTION
+            </h2>
+            <p>The inertial measurement unit is a vital sensor to any practical robotics application.
+              Through complex integrated accelerometer and gyroscope, it can give you the vital information
+              needed to calculate the orientation of the robot. Through the tasks outlined in <a
+                href="https://cei-lab.github.io/FastRobots-2023/Lab4.html">Lab 4</a>,
+              I will work towards using the IMU to my advantage and appplying it to the robot we're designing.
+            </p>
+            <h2 style="text-align: center">SETTING UP THE IMU</h2>
+            <img style="height: 200px" src="images\Circuitry4.jpg">
+            <p>
+              There was not much setup to the IMU. Simply connecting the QWIIC connect cables from the IMU to a
+              multiport was sufficient to get the component in a workable state.
+              Below you can see a quick video showing me running the example code.
+            <p>
+              <iframe width="320" height="560" src="https://www.youtube.com/embed/pamN_Xt2Lh8"
+                title="Lab 4: Testing IMU" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+            <blockquote>
+              Note: In this code, there is a specific constant, AD0_VAL. This constant can be used to change the last
+              digit of the address for the IMU, allowing for easy integration of a second IMU without overlapping
+              I<sup>2</sup>C addresses.
+            </blockquote>
+            <p>
+              Now looking closely as I turn the IMU around, we can see a few things. For instance, while in a standard
+              orientation, the acceleration in the z-direction is almost constantly read to be approximately 1000 mg.
+              This is due to the force of gravity on the accelerometer. Whichever axis points vertically will have
+              more of a gravitational component than the rest. We can also see that while I turn the IMU that the
+              gyroscope values respond. The gyroscope reads the angular velocity of the system and while the
+              accelerometer implements trigonometric relationships
+              in order to find an approximate angle, the gyroscope must be integrated over a step time in order to
+              derive the angle.
+            </p>
+            <h2 style="text-align: center">ACCELEROMETER</h2>
+            <img style="width: 350px" src="C:\Users\juls6\Documents\GitHub\Fast-Robots\docs\sensor_connects.PNG">
+            <p>
+              Using the below code and by rotating the IMU about the edge of the table, I was able to successfully
+              determine the angle of each axis to the IMU and make the graph seen.
+            </p>
+            <img style="width: 350px" src="images\Lab 4 stuff\codeforaccel.PNG">
+            <img style="width: 350px" src="images\Lab 4 stuff\Serial Plotter pitch and roll.PNG">
+            <p>
+              Evidently, the IMU can be incredibly noisy and have some issues when pitch or roll reaches the 90 degree
+              position. This is likely due to the trigonometric relation used to describe the angle. When the angle
+              reaches 90 degrees the atan2 function spits out a much larger number than it should do to the
+              quadrant boundary.
+              Regardless, the results are pretty accurate even though there is significant noise overlayed on it. Taking
+              this resulting signal and sending it to my computer, it looked like this:
+            </p>
+            <img style="width: 350px" src="images\Lab 4 stuff\PRSignals.PNG">
+            <p>
+              In order to attempt to cut out some noise, I did a fourier spectrum analysis on the signal to pick out
+              unnaturally high frequencies. Here are the results:
+            </p>
+            <img style="width: 350px" src="images\Lab 4 stuff\Fourier Analysis.PNG">
+            <p>
+              As seen above, the signal is very strong at very low frequencies with a lot of smaller amplitude noise.
+              This means that there isn't any one frequency of noise. This likely arises from some kind of internal low
+              pass filter in the IMU itself. In fact, by looking into the IMUs
+              datasheet, the following can be found:
+            </p>
+            <img style="width: 350px" src="images\Lab 4 stuff\integratedRCevidence.PNG">
+            <p>
+              The optional low pass filter seems to be integrated and the empirical evidence I gathered seems to confirm
+              that.
+
+            </p>
+
+            <h2 style="text-align: center">GYROSCOPE</h2>
+            <p>
+              The gyroscope had to be implemented differently than the accelerometer. Because it measures angular
+              velocity, I simply needed to multiply the reading by some time step that the control loop ran at, then I
+              was getting
+              decently accurate positional angles that didn't have any noise like the accelerometer did but instead
+              drifted from the initial values. Below is a video example of the gyroscope's relationship to its angular
+              position.
+            </p>
+            <iframe width="642" height="361" src="https://www.youtube.com/embed/GfAvFq9yFHc" title="Lab 4: gyro only"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+            <p>
+              If we were to combine both the accelerometer and the gyroscope we'd get a complimentary filter that would
+              cover the weaknesses of both sensors. Below is the code I used to get there and a video of the final
+              result of the filter.
+
+            </p>
+            <img style="width: 350px" src="images\Lab 4 stuff\filterCode.PNG">
+            <iframe width="320" height="560" src="https://www.youtube.com/embed/PckeqSqy5lo" title="Lab 4: comp filter"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+            <p>
+              The alpha value in the equation to find the final angle is a constant chosen by me. It represents how
+              "trusting" we are in the value we get from the accelerometer.
+              I chose this number to be around 0.1. This is due to the noisy and unpredicatable nature of the
+              accelerometer compared to the steadyness of the gyroscope. Finally, I was able to take out all the things
+              slowing down the program and see how fast I was actually able to sample the IMU.
+              This turned out to be around 22ms a sample as seen by the Serial monitor output below.
+            </p>
+            <img style="width: 350px" src="images\speed.PNG">
+            <h2 style="text-align: center">APPLICATION</h2>
+
+            <h4> SAMPLING</h4>
+            <p>
+              To apply this lab to the future of our bot, we're going to need to take these sensors to the wireless
+              realm. In order to do that, we need to establish new commands in the ble_Arduino script used in previous
+              labs.
+              By reading the sensors into arrays we can manage the large data load needed to send over all the
+              information that the IMU and the Time of Flight sensors collect. I thought it would be best to seperate each
+              measurement into its own array. That way the information is much more organized and I can choose each component I want to send later.
+              This means we need 9 arrays (time, ToF1, ToF2,
+              accelerometer: x, y, z, and gyro: x, y, z).
+              If we make all those numbers 4 byte floats, that means one packet of information takes up 36 bytes. If we
+              continue taking samples at 22 ms like we were before (keeping in mind the artemis has approximately 384 kB
+              of RAM) we should be able to store approximately 213 seconds
+              of data before all 384 kB are full.
+              Below is my evidence that I acomplished 5 seconds of data collection:
+            </p>
+            <img style="width: 350px" src="images\Lab 4 stuff\IMU_TOF_DATA.PNG">
+            <img style="width: 650px" src="images\somepoints.PNG">
+
+            <h4>BATTERY</h4>
+            <p>
+              The kit we were given came with two types of batteries to use. a 650 mAh battery and an 850 mAh battery.
+              Either one could be used to power the artemis or the motors.
+              I made the decision to use the 850 mAh battery for the motors due to the heavy power consumption. With a
+              bigger battery on the motors, the whole system will be able to test for longer without a charge than if
+              I'd used the other battery.
+            </p>
+            <img style="width: 350px" src="Batteriedartemis.jpg">
+            <h4>STUNTS</h4>
+            <p>
+              Given a brand new RC car that I'm unfamiliar with, it only seems natural to give it a test drive for the
+              purpose of benchmarking my future progress in the class.
+              Below is a video that adequately exhibits the general motion and "tricks" that the car is capable of.
+            </p>
+            <iframe width="320" height="560" src="https://www.youtube.com/embed/eKrqvjJt0UY" title="Lab 4: Car Play"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+            <p>
+              As seen in the video, the car is surprisingly quick. It also is able to make virtually zero degree skid
+              turns. Going quickly in one direction then the other tends to flip the car. These are some things I need
+              to keep in mind when designing my own stunts later on.
+              <br>
+              In addition to my test drive, I also did a brief stunt with my artemis taped to the back of the car
+              collecting data. The following is the result:
+            </p>
+            <iframe width="320" height="560" src="https://www.youtube.com/embed/xn8CNB-ygR0" title="Lab 4: “stunt”"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+            <img style="width: 500px" src="images\Lab 4 stuff\stuntData.PNG">
+
+
+            <h2 style="text-align: center">CONCLUSION</h2>
+            <p>
+              This lab taught me how to implement an IMU into our bots. These devices are found everywhere today and can
+              be very useful for directly connecting users or robots to their environments.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- work details part end -->
+
+  <section class="works works-fit">
+    <div class="container">
+      <h2 class="subtitle">Other Labs</h2>
+      <div class="row">
+        <div class="col-md-3 col-sm-6">
+          <figure class="wow fadeInLeft animated portfolio-item animated" data-wow-duration="300ms" data-wow-delay="0ms"
+            style="visibility: visible; animation-duration: 300ms; -webkit-animation-duration: 300ms; animation-delay: 0ms; -webkit-animation-delay: 0ms; animation-name: fadeInLeft; -webkit-animation-name: fadeInLeft;">
+            <div class="img-wrapper">
+              <img src="images/bluetooth.png" class="img-fluid" alt="portfolio items" style="height: 330px">
+              <div class="overlay">
+                <div class="buttons">
+                  <a target="_blank" href="Lab2.html">Details</a>
+                </div>
+              </div>
+            </div>
+            <figcaption>
+              <h4>
+                <a href="Lab2.html">
+                  Lab 2: Bluetooth 
+                </a>
+              </h4>
+              <p>
+                Connecting the Artemis to an off-board computer
+              </p>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+          <figure class="wow fadeInLeft animated animated" data-wow-duration="300ms" data-wow-delay="300ms"
+            style="visibility: visible; animation-duration: 300ms; -webkit-animation-duration: 300ms; animation-delay: 300ms; -webkit-animation-delay: 300ms; animation-name: fadeInLeft; -webkit-animation-name: fadeInLeft;">
+            <div class="img-wrapper">
+              <img src="images/lab3cover.png" class="img-fluid" alt="portfolio items" style="height: 330px">
+              <div class="overlay">
+                <div class="buttons">
+                  <a target="_blank" href="Lab3.html">Details</a>
+                </div>
+              </div>
+            </div>
+            <figcaption>
+              <h4>
+                <a href="Lab3.html">
+                  Lab 3: Time of Flight 
+                </a>
+              </h4>
+              <p>
+                Implementing and Testing Time of Flight Sensors
+              </p>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+          <figure class="wow fadeInLeft animated animated" data-wow-duration="300ms" data-wow-delay="300ms"
+            style="visibility: visible; animation-duration: 300ms; -webkit-animation-duration: 300ms; animation-delay: 300ms; -webkit-animation-delay: 300ms; animation-name: fadeInLeft; -webkit-animation-name: fadeInLeft;">
+            <div class="img-wrapper">
+              <img src="images/lab5prof.png" class="img-fluid" alt="" style="height: 330px">
+              <div class="overlay">
+                <div class="buttons">
+                  <a target="_blank" href="Lab5.html">Details</a>
+                </div>
+              </div>
+            </div>
+            <figcaption>
+              <h4>
+                <a href="Lab5.html">
+                  Lab 5: Motor Control 
+                </a>
+              </h4>
+              <p>
+                Moving forward among other directions.
+              </p>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+          <figure class="wow fadeInLeft animated animated" data-wow-duration="300ms" data-wow-delay="600ms"
+            style="visibility: visible; animation-duration: 300ms; -webkit-animation-duration: 300ms; animation-delay: 600ms; -webkit-animation-delay: 600ms; animation-name: fadeInLeft; -webkit-animation-name: fadeInLeft;">
+            <div class="img-wrapper">
+              <img src="images/lab6.png" class="img-fluid" alt="" style="height: 330px">
+              <div class="overlay">
+                <div class="buttons">
+                  <a target="_blank" href="Lab6.html">Details</a>
+                </div>
+              </div>
+            </div>
+            <figcaption>
+              <h4>
+                <a href="Lab6.html">
+                  Lab 6: PID Control
+                </a>
+              </h4>
+              <p>
+                Using gain constants to control angle.
+              </p>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Template Javascript Files
+	================================================== -->
+  <!-- jquery -->
+  <script src="plugins/jQurey/jquery.min.js"></script>
+  <!-- Form Validation -->
+  <script src="plugins/form-validation/jquery.form.js"></script>
+  <script src="plugins/form-validation/jquery.validate.min.js"></script>
+  <!-- slick slider -->
+  <script src="plugins/slick/slick.min.js"></script>
+  <!-- bootstrap js -->
+  <script src="plugins/bootstrap/bootstrap.min.js"></script>
+  <!-- wow js -->
+  <script src="plugins/wow-js/wow.min.js"></script>
+  <!-- slider js -->
+  <script src="plugins/slider/slider.js"></script>
+  <!-- Fancybox -->
+  <script src="plugins/facncybox/jquery.fancybox.js"></script>
+  <!-- template main js -->
+  <script src="js/main.js"></script>
+</body>
+
+</html>

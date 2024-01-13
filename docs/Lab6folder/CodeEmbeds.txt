@@ -1,0 +1,2 @@
+1: first Error encoder
+<script src="https://gist.github.com/Julian-Prieto67/aff826a281b1e0208801c706e718e8b8.js"></script>

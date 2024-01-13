@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+<!--
+ // WEBSITE: https://themefisher.com
+ // TWITTER: https://twitter.com/themefisher
+ // FACEBOOK: https://www.facebook.com/themefisher
+ // GITHUB: https://github.com/themefisher/
+-->
+
+<html class="no-js">
+
+<head>
+  <!-- Basic Page Needs
+        ================================================== -->
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="icon" href="favicon.ico">
+  <title>Julian Prieto | Lab 12</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="">
+  <!-- Mobile Specific Metas
+        ================================================== -->
+  <meta name="format-detection" content="telephone=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <!-- Template CSS Files
+        ================================================== -->
+  <!-- Twitter Bootstrs CSS -->
+  <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
+  <!-- Ionicons Fonts Css -->
+  <link rel="stylesheet" href="plugins/ionicons/ionicons.min.css">
+  <!-- animate css -->
+  <link rel="stylesheet" href="plugins/animate-css/animate.css">
+  <!-- Hero area slider css-->
+  <link rel="stylesheet" href="plugins/slider/slider.css">
+  <!-- slick slider -->
+  <link rel="stylesheet" href="plugins/slick/slick.css">
+  <!-- Fancybox -->
+  <link rel="stylesheet" href="plugins/facncybox/jquery.fancybox.css">
+  <!-- hover -->
+  <link rel="stylesheet" href="plugins/hover/hover-min.css">
+  <!-- template main css file -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <!--
+        ==================================================
+        Header Section Start
+        ================================================== -->
+  <section class="top-bar animated-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="index.html">
+              <!-- <img class="logo" src="./images/logo.jpg" alt="logo"> -->
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="index.html">Home
+                    <span class="sr-only">(current)</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="about.html">About</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--
+==================================================
+Global Page Section Start
+================================================== -->
+  <section class="global-page-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="block">
+            <h2>Lab 12: Path Planning and Execution </h2>
+            <div class="portfolio-meta">
+              <span>May 20th, 2023</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/#Page header-->
+
+  <!-- work details part start -->
+  <section class="work-single">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div style="display: flex; justify-content: center;" class="work-single-image">
+            <!-- Work Single Image -->
+            <img style="height: 330px" src="images\lab12cover.PNG" alt="cover photo for lab 12">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <!-- work single Content -->
+          <div class="work-single-content">
+            <h2 style=" text-align: center">
+              INTRODUCTION
+            </h2>
+            <p>
+              In labs 1 through 5 I built a robot that could debug and send commands through bluetooth. In labs
+              6 through 8 I implemented closed-loop PID control and a Kalman Filter. In lab 9 the robot mapped 
+              its surroundings. In labs 10 and 11 it localized and determined its position. To wrap up this semester,
+              all of it will be integrated and used to navigate through the positions below.
+            </p>
+            <img src="lab12folder\goal.PNG" alt="cover photo for lab 11">
+
+            <h2 style="text-align: center">STRATEGY</h2>
+            <p>
+              In order to get through all these points I could've just hard-coded a path that worked into the robot and I could've 
+              been done within a day but what's the fun in that? I've learned all these clever solutions to fundamental issues in robotics
+              and I wasn't going to ignore them. 
+            </p>
+            <br>
+            <p>
+              First, I had to decide what the main loop looked like and I decided the most elegant solution was to update all my sensors as fast as possible and constantly PID control while changing 
+              reference values for things like speed and angle in order to position myself. Once I moved myself into a position, the robot
+              would localize to determine its position and move from its highest belief coordinate to some goal coordinate. This meant
+              there were only four main functions that I had to use:
+            </p>
+            <code>
+              updateSensors()<br>
+              PIDControl()<br>
+              MAP()<br>
+              MoveTo(CX,CY,GX,GY)
+            </code>
+            <h2 style="text-align: center">FUNCTIONS</h2>
+            <code>updateSensors()</code>
+            <script src="https://gist.github.com/Julian-Prieto67/7dda8791c89b71e68be64ecddebb2d75.js"></script>
+            <p>
+              I've been the above code snippet since Lab 6 and it's been incredibly helpful. This function runs as soon as the bot connects
+              through bluetooth and simply updates global variables that store data from the IMU and Time of Flight sensors. This 
+              function also integrates the gyroscope data in order to get the yaw orientation used for PIDControl. 
+            </p>
+            <br>
+            <code>PIDControl</code>
+            <script src="https://gist.github.com/Julian-Prieto67/31c28beb569337dfb833588f1b9fcab7.js"></script>
+            <p>
+              The PIDControl function executes closed-loop control to correct the orientation about some reference angle variable (<code>REFERENCE</code>).
+              The value of the control input is then added to the baseSpeed which sets the forward or backward speed of the robot.
+              This function wouldn't always be on as that would cause the robot to often shake itself out of position. Instead, I 
+              set a flag variable to "turn on" PIDControl through a BLE command right before executing the main Python loop that I'll go into more detail later on.  
+            </p>
+            <code>
+              MAP()
+            </code>
+            <script src="https://gist.github.com/Julian-Prieto67/a26a78407249b5927aba941e4ad175c1.js"></script>
+            <p>
+              I used this function back in lab 9 in order to map the arena. I made some slight modifications and made a helper
+              function <code>Circle()</code> for debugging purposes. By seperating the functions out, I was able to fine tune the PID gains 
+              that would best let the robot spin on axis and with as little drift as possible. This function was executed as
+              part of the <code>loc.perform_observation_loop</code> function in the python code. This gathered data on the surroundings of the robot
+              to be used for localization.
+            </p>
+            <code>
+              MoveTo(CX,CY,GX,GY)
+            </code>
+            <script src="https://gist.github.com/Julian-Prieto67/c3f82555d2390e6a0aa3eb2adf25f092.js"></script>
+            <p>
+              This was by far the most important function for this lab. This code took in current (X, Y) coordinates and
+              translated it into reference values for angle and distance. This also reused the exact same Kalman Filter 
+              I implemented in <a href="https://julian-prieto67.github.io/Fast-Robots/Lab7.html">Lab 7</a> to make the 
+              distance readings more accurate. The angle is determined from simple trigonometry and I determine the distance 
+              traveled by keeping track of the difference in KF distance readings at the start and end of the motion. 
+            </p>
+            <h3>THE COMPASS</h3>
+            <p>
+              I will briefly mention a function that was scrapped as a result of thorough testing, the <code>Compass()</code>
+              function. The goal of this function was to use magnetometer data to find true north and use the compass heading of 
+              robot to update the yaw in order to counteract the inevitable drifting of the yaw data from integrating the gyroscope.
+              The initial raw values gathered from magnetometer for each cardinal direction are as shown in the below plot:
+            </p>
+            <img style = "height: 400px" src="lab12folder\Compassgraphing.PNG" alt="Compass Graph">
+            <p>
+              By subtracting the offset of this circle from the X and Y readings and doing atan2(magY,magX), I was able to gather what the heading
+              of the robot was. Testing this data on a tethered connection to the laptop (not using bluetooth) proved reliable, however, the readings were 
+              far less reliable once implemented on the robot. Below is a correctional function written to reset the zero to approximately the right of the map,
+              which lies a little South of East.
+            </p>
+            <script src="https://gist.github.com/Julian-Prieto67/d2fc2e176e7d04715ec4f15361f0a317.js"></script>
+            <p>
+              The output of this function can be seen in the video below and the results were disappointing. To verify
+              the issue was not my code, I store the heading that the magnetometer reads and send it over via bluetooth. 
+              Theoretically, if the magnetometer is reading correctly all the headings after the first command, should be the same.
+              As seen below, this is not the case.
+            </p>
+            <iframe width="642" height="361" src="https://www.youtube.com/embed/2ahzt1MK3Tc" title="Lab 12 Compass Issues" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <img style = "width: 1000px"src="lab12folder\compassbad.PNG" alt="Compass incorrect data">
+            <blockquote>The data above is in the format "heading| magnetometer Y reading| magnetometer X reading"</blockquote>
+            <p>
+              The compass was unreliable at best. The heading was often off by 50 to 70 degrees and this gave horrible results. As a result,
+               I instead opted to implement a BLE command that takes a correctional input to add to the yaw reading. Whenever the robot missed 
+               the intended goalpoint, the robot corrected 
+              itself by -5 degrees and when it hit the point it corrected positive 5 degrees. This corrected for the general drift 
+              of the robot and if the robot overcorrected itself and missed the waypoint, the -5 degree correction would eventually lead to a perfect zero.
+            </p>
+            <h2 style="text-align: center">PYTHON LOOP</h2>
+            <p>
+              Now that the fundamental Artemis functions were written, tested, and properly implemented the only thing left
+              to do was write the basic loop that the python script would execute in order to navigate and self correct using localization. 
+              Below is the script I used:
+            </p>
+            <script src="https://gist.github.com/Julian-Prieto67/a39cbe37ef66179e1e71c1b9006d5780.js"></script>
+            <p>
+              The ground truth gridpoints plotted are green and only show up once the robot believes it has reached that point. 
+              The belief after localization is displayed on the graph as a blue dot. There is a zone of approximately 31 centimeters that 
+              determines if a waypoint has been hit. 
+              The first two points are hardcoded into the script. This was mostly to speed up execution time and average trial time. 
+              Every localization took approximately 30 to 40 seconds to complete so the less points we localized the better, since 
+              the map was a shared space. Additionally, travel from the first waypoint to the second involved Time of Flight sensor readings 
+              on a slanted wall while controlling orientation (and shaking because of it). This meant that more often then not, the distance data was 
+              inaccurate and the point was missed. 
+              To fix this, I added a waypoint perpindicular to the first two points in an effort to read off a horizontal wall. Below are two
+              of the more than forty seperate attempts to navigate the path.
+            </p>
+            <div style = "display: flex; column-gap: 10px">
+            <iframe width="637" height="304" src="https://www.youtube.com/embed/_YsiSVX7M5A" title="Lab 12: Incomplete Battery Depleted Run" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <img style = "width: 450px"src="lab12folder\mapthatalmostworked.PNG" alt="Compass incorrect data">
+            </div>
+            <div style = "display: flex; column-gap: 10px">
+            <iframe width="637" height="304" src="https://www.youtube.com/embed/xlBptKfF8d8" title="Lab 12: Complete Run" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <img style = "width: 450px"src="lab12folder\finishedrunpic.PNG" alt="Compass incorrect data">
+            </div>
+            <p>
+              The first clip was a very near complete run. The robot got all the way to the seventh waypoint before unfortunately running out of 
+              battery. The second video depicts the final run that fully navigates the path. As seen in the video, the localization was incredibly powerful
+              at determining the location and even after a completely wrong localization belief (caused by similarities in the structure of the surroundings around the robot), the robot could recover enough to complete the navigation.
+              The solution I implemented was far more reliable than any open loop timed control algorithm due to the location feedback. I could've improved my solution by implementing some sort of
+              search algorithm or obstacle avoidance routine but I felt it unnecessary due to the distance between waypoints. 
+            </p>
+            <h2 style="text-align: center">CONCLUSION</h2>
+            <p>
+              This class has taught me so much about the fundamentals of robotics. The countless hours of debugging scripts or hardware, 
+              writing and rewriting code, properly organizing that code, and documenting everything have been invaluable to my
+              robotics education. I feel confident the work I've done has made an everlasting impact on myself and I am so greatful for 
+              all the kind help I received from the TA's and friendly classmates. A special thank you is owed to Professor Kirsten Peterson
+              for her excellent explanations of complex concepts like the Kalman Filter and the Bayes Filter, to Anya Prabowo and Jonathon Jaramillo 
+              for hosting so many helpful lab hours that debugged impossible code issues, and to Rafael Gottlieb for his partnership on this lab.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- work details part end -->
+
+  <section class="works works-fit">
+    <div class="container">
+      <h2 class="subtitle">Other Labs</h2>
+      <div class="row">
+        <div class="col-md-3 col-sm-6">
+          <figure class="wow fadeInLeft animated portfolio-item animated" data-wow-duration="300ms" data-wow-delay="0ms"
+            style="visibility: visible; animation-duration: 300ms; -webkit-animation-duration: 300ms; animation-delay: 0ms; -webkit-animation-delay: 0ms; animation-name: fadeInLeft; -webkit-animation-name: fadeInLeft;">
+            <div class="img-wrapper">
+              <img src="images/lines.PNG" class="img-fluid" alt="portfolio items" style="height: 330px">
+              <div class="overlay">
+                <div class="buttons">
+                  <a target="_blank" href="Lab9.html">Details</a>
+                </div>
+              </div>
+            </div>
+            <figcaption>
+              <h4>
+                <a href="Lab9.html">
+                  Lab 9: Mapping 
+                </a>
+              </h4>
+              <p>
+                Using transformation matrices and TOF data to map a room.
+              </p>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+          <figure class="wow fadeInLeft animated animated" data-wow-duration="300ms" data-wow-delay="300ms"
+            style="visibility: visible; animation-duration: 300ms; -webkit-animation-duration: 300ms; animation-delay: 300ms; -webkit-animation-delay: 300ms; animation-name: fadeInLeft; -webkit-animation-name: fadeInLeft;">
+            <div class="img-wrapper">
+              <img src="images\lab10cover.PNG" class="img-fluid" alt="portfolio items" style="height: 330px">
+              <div class="overlay">
+                <div class="buttons">
+                  <a target="_blank" href="Lab10.html">Details</a>
+                </div>
+              </div>
+            </div>
+            <figcaption>
+              <h4>
+                <a href="Lab10.html">
+                  Lab 10: Localization (sim)
+                </a>
+              </h4>
+              <p>
+                Using a Bayesian filter, localize the location of a virtual robot. 
+              </p>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+          <figure class="wow fadeInLeft animated animated" data-wow-duration="300ms" data-wow-delay="300ms"
+            style="visibility: visible; animation-duration: 300ms; -webkit-animation-duration: 300ms; animation-delay: 300ms; -webkit-animation-delay: 300ms; animation-name: fadeInLeft; -webkit-animation-name: fadeInLeft;">
+            <div class="img-wrapper">
+              <img src="images/Lab 11 cover.png" class="img-fluid" alt="" style="height: 330px">
+              <div class="overlay">
+                <div class="buttons">
+                  <a target="_blank" href="Lab11.html">Details</a>
+                </div>
+              </div>
+            </div>
+            <figcaption>
+              <h4>
+                <a href="Lab11.html">
+                  Lab 11: Localization (real)
+                </a>
+              </h4>
+              <p>
+                Using a Bayesian filter, localize the location of a real robot.
+              </p>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+          <figure class="wow fadeInLeft animated animated" data-wow-duration="300ms" data-wow-delay="600ms"
+            style="visibility: visible; animation-duration: 300ms; -webkit-animation-duration: 300ms; animation-delay: 600ms; -webkit-animation-delay: 600ms; animation-name: fadeInLeft; -webkit-animation-name: fadeInLeft;">
+            <div class="img-wrapper">
+              <img src="images/portfolio/lab1-boardpic.jpeg" class="img-fluid" alt="" style="height: 330px">
+              <div class="overlay">
+                <div class="buttons">
+                  <a target="_blank" href="Lab1.html">Details</a>
+                </div>
+              </div>
+            </div>
+            <figcaption>
+              <h4>
+                <a href="Lab1.html">
+                  Lab 1: Setting Up
+                </a>
+              </h4>
+              <p>
+                Setting up the Artemis Board
+              </p>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Template Javascript Files
+	================================================== -->
+  <!-- jquery -->
+  <script src="plugins/jQurey/jquery.min.js"></script>
+  <!-- Form Validation -->
+  <script src="plugins/form-validation/jquery.form.js"></script>
+  <script src="plugins/form-validation/jquery.validate.min.js"></script>
+  <!-- slick slider -->
+  <script src="plugins/slick/slick.min.js"></script>
+  <!-- bootstrap js -->
+  <script src="plugins/bootstrap/bootstrap.min.js"></script>
+  <!-- wow js -->
+  <script src="plugins/wow-js/wow.min.js"></script>
+  <!-- slider js -->
+  <script src="plugins/slider/slider.js"></script>
+  <!-- Fancybox -->
+  <script src="plugins/facncybox/jquery.fancybox.js"></script>
+  <!-- template main js -->
+  <script src="js/main.js"></script>
+</body>
+
+</html>

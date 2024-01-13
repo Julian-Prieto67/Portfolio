@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<!--
+ // WEBSITE: https://themefisher.com
+ // TWITTER: https://twitter.com/themefisher
+ // FACEBOOK: https://www.facebook.com/themefisher
+ // GITHUB: https://github.com/themefisher/
+-->
+
+<html class="no-js">
+
+<head>
+  <!-- Basic Page Needs
+        ================================================== -->
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="icon" href="favicon.ico">
+  <title>Julian Prieto | Lab 10</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="">
+  <!-- Mobile Specific Metas
+        ================================================== -->
+  <meta name="format-detection" content="telephone=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <!-- Template CSS Files
+        ================================================== -->
+  <!-- Twitter Bootstrs CSS -->
+  <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
+  <!-- Ionicons Fonts Css -->
+  <link rel="stylesheet" href="plugins/ionicons/ionicons.min.css">
+  <!-- animate css -->
+  <link rel="stylesheet" href="plugins/animate-css/animate.css">
+  <!-- Hero area slider css-->
+  <link rel="stylesheet" href="plugins/slider/slider.css">
+  <!-- slick slider -->
+  <link rel="stylesheet" href="plugins/slick/slick.css">
+  <!-- Fancybox -->
+  <link rel="stylesheet" href="plugins/facncybox/jquery.fancybox.css">
+  <!-- hover -->
+  <link rel="stylesheet" href="plugins/hover/hover-min.css">
+  <!-- template main css file -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <!--
+        ==================================================
+        Header Section Start
+        ================================================== -->
+  <section class="top-bar animated-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="index.html">
+              <!-- <img class="logo" src="./images/logo.jpg" alt="logo"> -->
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="index.html">Home
+                    <span class="sr-only">(current)</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="about.html">About</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--
+==================================================
+Global Page Section Start
+================================================== -->
+  <section class="global-page-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="block">
+            <h2>Lab 10: Localization (sim)</h2>
+            <div class="portfolio-meta">
+              <span>April 26th, 2023</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/#Page header-->
+
+  <!-- work details part start -->
+  <section class="work-single">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div style="display: flex; justify-content: center;" class="work-single-image">
+            <!-- Work Single Image -->
+            <img style="height: 330px" src="images\lab10cover.PNG" alt="cover photo for lab 10">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <!-- work single Content -->
+          <div class="work-single-content">
+            <h2 style=" text-align: center">
+              INTRODUCTION
+            </h2>
+            <p>For <a href="https://cei-lab.github.io/FastRobots-2023/Lab10.html">Lab 10</a>, our class was tasked with grid localization using a Bayes filter. 
+              This filter takes in sensor measurements, control inputs, and a "belief" in order to determine position on a pre-determined map. 
+              This "belief" can be thought of as the robot's interpretation of where it might be on the map. By taking advantage of this belief, statistics, and the Bayesian inference, 
+              we can determine with relatively high precision where the robot lies on the map. 
+            </p>
+
+            <h2 style="text-align: center">THE ALGORITHM</h2>
+            <img style="height:200px"src="Lab10folder/Bayes_algo.PNG" class="img-fluid" alt="portfolio items">
+            <h4><code>inputs</code></h4>
+            <p>
+              Above is the algorithm used to implement Bayes filter (taken from Professor Kirsten Peterson's <a href="https://cei-lab.github.io/FastRobots-2023/lectures/FastRobots-19-Markov_BayesFilter2.pdf"> lecture 19</a> slides).
+              We start with a belief matrix(the size of every possible state our robot could be in) that describes the probability our robot is in that state. We also take in control inputs
+              (delta_rot1, delta_trans, and delta_rot2) in the form of our input u<sub>t</sub>. The final input z<sub>t</sub> represents our sensor readings
+              in the form of an 18 element list of distances taken at specified angles. 
+            </p>
+            <h4><code>prediction</code></h4>
+            <p>
+              At the prediction step in the algorithm, we estimate the belief in a specific state by multiplying the probability we were in our previous state with the probablity we ended up in our new state given our control inputs. 
+              We sum this probability across every state to predict our new belief, bel_bar. This is all to say that we use a motion model to predict how likely our robot ended up where it did knowing how far it tried to move.
+              This step generally increases uncertainty of our position because our robot performed an action and changed its environment. We can only estimate this change according to our model (in this case a Gaussian curve).
+              We can then take this estimate into the next step of the Bayes filter, the update step. 
+            </p>
+            <h4><code>update</code></h4>
+            <p>
+              The update step is where the reduction of uncertainty happens. We account for sensor readings in order to pinpoint our position. 
+              The belief of the current pose becomes our previous estimate, bel bar, multiplied by the probability that we got our sensor readings in our current state. 
+              The <strong>η</strong> term is simply there to normalize the belief matrix so that it sums to one, as any probability distribution should. 
+            </p>
+            <h2 style="text-align: center">THE CODE</h2>
+            <p>
+              Now that I know what the Bayes filter actually is, I can try and implement on our simulated robot. The noisy odometry and sensor readings should mimic
+              a real robot and give a good representation for the physical version without all the complications of reality.
+            </p>
+            <h3><code>compute_control</code></h3>
+            <script src="https://gist.github.com/Julian-Prieto67/d1c71bf0c7335840b813deadfc3a9637.js"></script>
+            <p>
+                The compute_control function, helps to derive a u<sub>t</sub> that would result in the pose change seen in the inputs (from prev_pose to cur_pose).
+                In <a href = "https://cei-lab.github.io/FastRobots-2023/lectures/FastRobots-17-Motion_models.pdf">lecture 17</a> there's an excellent slide illustrating just
+                how we might do that. 
+            </p>
+            <img style="height:200px"src="lab10folder\odometryModel.PNG" class="img-fluid" alt="portfolio items">
+            <p>
+              As seen in the code above, I derived each expression for our three control inputs on the equations above. These equations represent any motion of our robot as two rotations
+              and a linear transformation. 
+            </p>
+            <h3><code>odom_motion_model</code></h3>
+            <img style="height:30px"src="lab10folder\odom_motion.PNG" class="img-fluid" alt="portfolio items">
+            <script src="https://gist.github.com/Julian-Prieto67/7e9269786ed1bd6b513db3db1cfc6f34.js"></script>
+            <p>
+              The odometry model above derives the robot's probability of state given an action. This takes the intended transformation or rotation, and estimates the result as a Gaussian distribution (with a sigma given by the task).
+              In order to estimate the probability of the executed motions, we assume they are independent events and multiply the probabilties of the results against each other in order to achieve the final state's probability of the whole motion.   
+            </p>
+            <h3><code>prediction_step</code></h3>
+            <script src="https://gist.github.com/Julian-Prieto67/96ba1cc2fee6e1f42206167d9e3c7f51.js"></script>
+            <p>
+              Now that we set up the building blocks for the predictions, we can put them together in the prediction step. 
+              Here we start by defining a control u<sub>t</sub> and then we have a strange but necessary 6 nested for loops. 
+              In order to update our bel_bar with our motion model, we need to apply it across every state, which means looping across all x grid locations (12), all y locations (9), and all angles (18) in our discretized space. 
+              In every grid location we then calculate a new belief based on the odometry model and the previous belief in that grid space.
+              Our result will give us a new belief matrix (bel_bar) which isn't normalized but represents the change in certainty given our robots motion. 
+              I chose to normalize this intermediate belief, but this isn't necessary. As a sidenote, this operation in particular can become pretty computationally expensive very quickly. To counteract that, I don't even consider grid locations that have a probability of less than .001.
+              This means the resulting filter is less accurate but far faster. 
+            </p>
+            <h3><code>sensor_model</code></h3>
+            <script src="https://gist.github.com/Julian-Prieto67/b485488bfecfe96b5bc1947dad5bee3c.js"></script>
+            <p>
+              The above short script, much like the odometry model, is a helper method used to calculate the probability of a sensor reading given a particular state. 
+              It will output an 18 element list of the probability of each sensor measurement it gets by spinning around in a circle and gathering data. These will be useful in the final step of the Bayes filter.
+            </p>
+            <h3><code>update_step</code></h3>
+            <script src="https://gist.github.com/Julian-Prieto67/e14e80cf033642c26983590ff70a3c9e.js"></script>
+            <p>
+              Here's where all the previous work comes together. In the update step, the estimated belief from the prediction step (bel_bar) needs to be updated to account for the sensor readings in the robots new state. 
+              In order to do that, I need to loop through all the states (three more for loops like before) and multiply the probability of getting the current sensor readings with the current belief in the grid location. 
+              This will yield a final belief that can be normalized and used to represent the estimated position of the robot.
+            </p>
+            <h2 style="text-align: center">SIMULATION</h2>
+            <p>
+              The Bayes Algorithm shown above is an incredibly powerful tool that uses statistics and computation to derive a physcial location using often terribly estimated inputs. I'm happy to say
+              I was able to get the simulation running the Filter in no time, thanks to Anya Prabowo's help and Professor Petersons lectures. Below are videos of the filter in action. 
+              Whiter grid locations indicate a higher belief and the second video shows a blue "belief" line that indicates an estimated position. Both videos show exceptional estimations of locations given the terrible odometry (in red).
+              The areas where the Bayes filter doesn't work as well, are the areas where the map seems symmetrical (the center of the map). This is due to the way the sensors see the world. The robot becomes less 
+            </p>
+            <iframe width="642" height="361" src="https://www.youtube.com/embed/AsJVKrNUwqU" title="Lab 10: Bayes Filter Part 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe width="642" height="361" src="https://www.youtube.com/embed/7QBupIkY1f8" title="Lab 10: Bayes Filter Part 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+            <h2 style="text-align: center">REFERENCES</h2>
+            <p>
+              This report would not have been possible without the incredible help and guidance from Anya Prabowo (her website <a href ="https://anyafp.github.io/ece4960/labs/lab11/">here</a>) and Professor Kirsten Peterson (her lecture slides <a href="https://cei-lab.github.io/FastRobots-2023/lectures/">here</a>).
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- work details part end -->
+
+  <section class="works works-fit">
+    <div class="container">
+      <h2 class="subtitle">Other Labs</h2>
+      <div class="row">
+        <div class="col-md-3 col-sm-6">
+          <figure class="wow fadeInLeft animated portfolio-item animated" data-wow-duration="300ms" data-wow-delay="0ms"
+            style="visibility: visible; animation-duration: 300ms; -webkit-animation-duration: 300ms; animation-delay: 0ms; -webkit-animation-delay: 0ms; animation-name: fadeInLeft; -webkit-animation-name: fadeInLeft;">
+            <div class="img-wrapper">
+              <img src="images\thumbnail8.png" class="img-fluid" alt="portfolio items" style="height: 330px">
+              <div class="overlay">
+                <div class="buttons">
+                  <a target="_blank" href="Lab8.html">Details</a>
+                </div>
+              </div>
+            </div>
+            <figcaption>
+              <h4>
+                <a href="Lab8.html">
+                  Lab 8: Stunts! 
+                </a>
+              </h4>
+              <p>
+                It's a stunt!
+              </p>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+          <figure class="wow fadeInLeft animated animated" data-wow-duration="300ms" data-wow-delay="300ms"
+            style="visibility: visible; animation-duration: 300ms; -webkit-animation-duration: 300ms; animation-delay: 300ms; -webkit-animation-delay: 300ms; animation-name: fadeInLeft; -webkit-animation-name: fadeInLeft;">
+            <div class="img-wrapper">
+              <img src="images\lines.PNG" class="img-fluid" alt="portfolio items" style="height: 330px">
+              <div class="overlay">
+                <div class="buttons">
+                  <a target="_blank" href="Lab9.html">Details</a>
+                </div>
+              </div>
+            </div>
+            <figcaption>
+              <h4>
+                <a href="Lab9.html">
+                  Lab 9: Mapping
+                </a>
+              </h4>
+              <p>
+                Using transformation matrices and TOF data to map a room.
+              </p>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+          <figure class="wow fadeInLeft animated animated" data-wow-duration="300ms" data-wow-delay="300ms"
+            style="visibility: visible; animation-duration: 300ms; -webkit-animation-duration: 300ms; animation-delay: 300ms; -webkit-animation-delay: 300ms; animation-name: fadeInLeft; -webkit-animation-name: fadeInLeft;">
+            <div class="img-wrapper">
+              <img src="images/Lab 11 cover.png" class="img-fluid" alt="" style="height: 330px">
+              <div class="overlay">
+                <div class="buttons">
+                  <a target="_blank" href="Lab11.html">Details</a>
+                </div>
+              </div>
+            </div>
+            <figcaption>
+              <h4>
+                <a href="Lab11.html">
+                  Lab 11: Localization (real)
+                </a>
+              </h4>
+              <p>
+                Using a Bayesian filter, localize the location of a real robot.
+              </p>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+          <figure class="wow fadeInLeft animated animated" data-wow-duration="300ms" data-wow-delay="600ms"
+            style="visibility: visible; animation-duration: 300ms; -webkit-animation-duration: 300ms; animation-delay: 600ms; -webkit-animation-delay: 600ms; animation-name: fadeInLeft; -webkit-animation-name: fadeInLeft;">
+            <div class="img-wrapper">
+              <img src="images/lab12cover.PNG" class="img-fluid" alt="" style="height: 330px">
+              <div class="overlay">
+                <div class="buttons">
+                  <a target="_blank" href="Lab12.html">Details</a>
+                </div>
+              </div>
+            </div>
+            <figcaption>
+              <h4>
+                <a href="Lab12.html">
+                  Lab 12: Path Planning and Execution
+                </a>
+              </h4>
+              <p>
+                Putting everything together to navigate a map.
+              </p>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Template Javascript Files
+	================================================== -->
+  <!-- jquery -->
+  <script src="plugins/jQurey/jquery.min.js"></script>
+  <!-- Form Validation -->
+  <script src="plugins/form-validation/jquery.form.js"></script>
+  <script src="plugins/form-validation/jquery.validate.min.js"></script>
+  <!-- slick slider -->
+  <script src="plugins/slick/slick.min.js"></script>
+  <!-- bootstrap js -->
+  <script src="plugins/bootstrap/bootstrap.min.js"></script>
+  <!-- wow js -->
+  <script src="plugins/wow-js/wow.min.js"></script>
+  <!-- slider js -->
+  <script src="plugins/slider/slider.js"></script>
+  <!-- Fancybox -->
+  <script src="plugins/facncybox/jquery.fancybox.js"></script>
+  <!-- template main js -->
+  <script src="js/main.js"></script>
+</body>
+
+</html>

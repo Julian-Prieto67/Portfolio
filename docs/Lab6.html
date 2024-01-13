@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<!--
+ // WEBSITE: https://themefisher.com
+ // TWITTER: https://twitter.com/themefisher
+ // FACEBOOK: https://www.facebook.com/themefisher
+ // GITHUB: https://github.com/themefisher/
+-->
+
+<html class="no-js">
+
+<head>
+  <!-- Basic Page Needs
+        ================================================== -->
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="icon" href="favicon.ico">
+  <title>Julian Prieto | Lab 6</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="">
+  <!-- Mobile Specific Metas
+        ================================================== -->
+  <meta name="format-detection" content="telephone=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <!-- Template CSS Files
+        ================================================== -->
+  <!-- Twitter Bootstrs CSS -->
+  <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
+  <!-- Ionicons Fonts Css -->
+  <link rel="stylesheet" href="plugins/ionicons/ionicons.min.css">
+  <!-- animate css -->
+  <link rel="stylesheet" href="plugins/animate-css/animate.css">
+  <!-- Hero area slider css-->
+  <link rel="stylesheet" href="plugins/slider/slider.css">
+  <!-- slick slider -->
+  <link rel="stylesheet" href="plugins/slick/slick.css">
+  <!-- Fancybox -->
+  <link rel="stylesheet" href="plugins/facncybox/jquery.fancybox.css">
+  <!-- hover -->
+  <link rel="stylesheet" href="plugins/hover/hover-min.css">
+  <!-- template main css file -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <!--
+        ==================================================
+        Header Section Start
+        ================================================== -->
+  <section class="top-bar animated-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="index.html">
+              <!-- <img class="logo" src="./images/logo.jpg" alt="logo"> -->
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="index.html">Home
+                    <span class="sr-only">(current)</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="about.html">About</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--
+==================================================
+Global Page Section Start
+================================================== -->
+  <section class="global-page-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="block">
+            <h2>Lab 6: PID Contoller</h2>
+            <div class="portfolio-meta">
+              <span>March 22nd, 2023</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/#Page header-->
+
+  <!-- work details part start -->
+  <section class="work-single">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div style="display: flex; justify-content: center;" class="work-single-image">
+            <!-- Work Single Image -->
+            <img style="height: 330px" src="images/lab6.png" alt="work-single-image">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <!-- work single Content -->
+          <div class="work-single-content">
+            <h2 style=" text-align: center">
+              INTRODUCTION
+            </h2>
+            <p>For this lab, I implement a PID controller algorithm to do task B in <a
+                href="https://cei-lab.github.io/FastRobots-2023/Lab6.html">Lab 6</a>. That means using PID(Proportional,
+              Integrator, and Derivative) control
+              to manipulate the orientation of my robot by changing reference angles.
+            </p>
+            <h2 style="text-align: center">WIRELESS INFORMATION</h2>
+            <p>
+              Before I even started programming the controller onto my robot, I had to establish a way to figure out key
+              values on my robot. There's no serial monitor when the robot isn't connected and there's no way to run a
+              jerky controller algorithm freely
+              while tethered to a six inch cable, so storing sensor values and reference values to send after a script
+              ran was vital. To do this, I globally declared arrays for each variable I planned to store. I then made
+              functions that waited for a previously specified
+              amount of time before storing each value in the next position in the array. At the end of whatever trick
+              or timer I set for later scripts, I made another function that sent it all to my computer. This made the
+              rest of the project (especially tuning the controller) much easier.
+              Now I could graph the data I collected in python and make conclusions on the state of my robot wirelessly,
+              allowing me to make every plot in this report.
+            <p>
+              <script src="https://gist.github.com/Julian-Prieto67/776ec516a31526113a56db6e98c716c7.js"></script>
+            <blockquote>Above: Code to store data <br> Below: An example graph</blockquote>
+            <img style="width: 350px" src="Lab6folder/exampleGraph.PNG">
+
+            <h2 style="text-align: center">IMPLEMENTING A P CONTROLLER</h2>
+            <p>
+              In order to make sure I understood the concept of angular control, I started by implementing a purely
+              proportional controller. This involved calculating the current yaw angle from the integration of the
+              gyroscope reading (minimizing error by taking gyroscope measurements as quickly as possible), inputting a
+              reference angle, and calculating the error between the two. By multiplying the error by some constant gain
+              Kp,
+              a motor offset can be added or subtracted from the function I use to move them. By adjusting the gain I
+              can make the system more or less responsive, however, there is a constant error present in the steady
+              state angle. To see this, I implemented two commands: one to take inputs for my gain and reference angle
+              (changing them remotely and bypassing the slow Arduino compile time) and another to add motor offset based
+              on the reference.
+              Using these functions and data packages from the arduino I got the following graphs:
+            </p>
+            <img style="width: 350px" src="Lab6folder\TheresError.PNG">
+            <blockquote> Above: Error for a Proportional controller response to impulse disturbance <br> Below: The
+              corresponding motor inputs as a result of the error and the code</blockquote>
+            <img style="width: 350px" src="Lab6folder\errorMotorOutput.PNG">
+            <script src="https://gist.github.com/Julian-Prieto67/aff826a281b1e0208801c706e718e8b8.js"></script>
+            <p>
+              Looking at the graphs above, we can see there is a constant error that the controller doesn't get rid of
+              and the response isn't that quick. To fix this I added the integrator term of the controller and a
+              derivative term to limit the oscillatory response. This final code used to orient the robot is below:
+            </p>
+            <script src="https://gist.github.com/Julian-Prieto67/a16598c54d98ca507f2f74f526967533.js"></script>
+            <h2 style="text-align: center">TUNING</h2>
+            <p>
+              The next part of the project was tuning the controller. Now that my controller was functional and
+              corrected my bot well, I could use the commands I've developed thus far to repeatedly test different Kp,
+              Ki, and Kd values until the system behaved in a way I'd like.
+              Below is a graph of the final controller I used and the corresponding PID terms. The first reference
+              change from 0 to 180 hold the gain constants I ended up using (Kp = 8, Ki = .5, Kd = 1). 
+            </p>
+
+            <img style="width: 350px" src="Lab6folder\final_controller.PNG">
+            <img style="width: 350px" src="Lab6folder\final_PID_terms.PNG">
+            <p> By this point I'd discovered another problem. </p>
+
+            <h2 style="text-align: center">GYROSCOPE LIMITS</h2>
+            <p>
+              By default, the IMU we are using contains a cap on the max rotation it outputs. This means that the
+              integration of the gyroscope was giving me incorrect approximations for the actual robot angle. I had
+              manually changed the cap from 250 dps to 500 dps earlier to avoid this issue but I kept seeing the cap
+              being reached as seen below. After changing the cap to 1000 dps, I was able to get the next graph, showing
+              values of the gyroscope no where near the maximum, which fixed the problem quite well
+            </p>
+            <img style="width: 350px" src="Lab6folder\MaxxingOutGyro.PNG">
+            <img style="width: 350px" src="Lab6folder\fixingGyro.PNG">
+            <h2 style="text-align: center">INTEGRATING THE TIME OF FLIGHT SENSOR</h2>
+            <p>
+              Next, the lab had me write a script that integrated the orientation controller I just made with a distance
+              sensor reading from the TOF sensor on front of my robot. I wrote the simple script below to change the
+              reference angle once a certain distance was met and saw some peculiar properties. When the sensor is out
+              of range, it returns the value zero. The sensor also does not update anywhere nearly as quickly as the IMU
+              so the values can be somewhat unreliable. Regardless,
+              I was able to capture the below video of the whole system together and the following graphs of the
+              successful attempt.
+            </p>
+            <script src="https://gist.github.com/Julian-Prieto67/1a3b03552f3f9056c62fd69be2a8882f.js"></script>
+            <iframe width="320" height="560" src="https://www.youtube.com/embed/6anqx8huu6w"
+              title="Lab 6: PID Orientation Controller" frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+            <img style="width: 350px" src="Lab6folder\exampleGraph.PNG">
+            <img style="width: 350px" src="Lab6folder\error_success.PNG">
+            <img style="width: 350px" src="Lab6folder\final_PID_terms.PNG">
+            <img style="width: 350px" src="Lab6folder\TOF2.PNG">
+            <img style="width: 350px" src="Lab6folder\motor_output_success.PNG">
+
+
+            <h2 style="text-align: center">CONCLUSION</h2>
+            <p>
+              PID controllers have many useful applications in the manipulation of robotics. I've been surprised at how
+              much fun I could have just plotting the angle and reference graphs. Regardless, I learned very much about
+              the process behind implementing a PID controller and good code on a robot (like using flags rather than
+              the command switch statemet).
+
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- work details part end -->
+
+  <section class="works works-fit">
+    <div class="container">
+      <h2 class="subtitle">Other Labs</h2>
+      <div class="row">
+        <div class="col-md-3 col-sm-6">
+          <figure class="wow fadeInLeft animated portfolio-item animated" data-wow-duration="300ms" data-wow-delay="0ms"
+            style="visibility: visible; animation-duration: 300ms; -webkit-animation-duration: 300ms; animation-delay: 0ms; -webkit-animation-delay: 0ms; animation-name: fadeInLeft; -webkit-animation-name: fadeInLeft;">
+            <div class="img-wrapper">
+              <img src="images/Lab_4_profile.png" class="img-fluid" alt="portfolio items" style="height: 330px">
+              <div class="overlay">
+                <div class="buttons">
+                  <a target="_blank" href="Lab4.html">Details</a>
+                </div>
+              </div>
+            </div>
+            <figcaption>
+              <h4>
+                <a href="Lab4.html">
+                  Lab 4: The IMU
+                </a>
+              </h4>
+              <p>
+                Connecting the artemis to reality.
+              </p>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+          <figure class="wow fadeInLeft animated animated" data-wow-duration="300ms" data-wow-delay="300ms"
+            style="visibility: visible; animation-duration: 300ms; -webkit-animation-duration: 300ms; animation-delay: 300ms; -webkit-animation-delay: 300ms; animation-name: fadeInLeft; -webkit-animation-name: fadeInLeft;">
+            <div class="img-wrapper">
+              <img src="images/lab5prof.png" class="img-fluid" alt="portfolio items" style="height: 330px">
+              <div class="overlay">
+                <div class="buttons">
+                  <a target="_blank" href="Lab5.html">Details</a>
+                </div>
+              </div>
+            </div>
+            <figcaption>
+              <h4>
+                <a href="Lab5.html">
+                  Lab 5: Motor Control
+                </a>
+              </h4>
+              <p>
+                Moving forward among other directions.
+              </p>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+          <figure class="wow fadeInLeft animated animated" data-wow-duration="300ms" data-wow-delay="300ms"
+            style="visibility: visible; animation-duration: 300ms; -webkit-animation-duration: 300ms; animation-delay: 300ms; -webkit-animation-delay: 300ms; animation-name: fadeInLeft; -webkit-animation-name: fadeInLeft;">
+            <div class="img-wrapper">
+              <img src="images\Kfthumbnail.jpg" class="img-fluid" alt="" style="height: 330px">
+              <div class="overlay">
+                <div class="buttons">
+                  <a target="_blank" href="Lab7.html">Details</a>
+                </div>
+              </div>
+            </div>
+            <figcaption>
+              <h4>
+                <a href="Lab7.html">
+                  Lab 7: Kalman Filter
+                </a>
+              </h4>
+              <p>
+                Fixing noisy sensors with statistics!
+              </p>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+          <figure class="wow fadeInLeft animated animated" data-wow-duration="300ms" data-wow-delay="600ms"
+            style="visibility: visible; animation-duration: 300ms; -webkit-animation-duration: 300ms; animation-delay: 600ms; -webkit-animation-delay: 600ms; animation-name: fadeInLeft; -webkit-animation-name: fadeInLeft;">
+            <div class="img-wrapper">
+              <img src="images\thumbnail8.png" class="img-fluid" alt="" style="height: 330px">
+              <div class="overlay">
+                <div class="buttons">
+                  <a target="_blank" href="Lab8.html">Details</a>
+                </div>
+              </div>
+            </div>
+            <figcaption>
+              <h4>
+                <a href="Lab8.html">
+                  Lab 8: Stunts!
+                </a>
+              </h4>
+              <p>
+                It's a stunt!
+              </p>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Template Javascript Files
+	================================================== -->
+  <!-- jquery -->
+  <script src="plugins/jQurey/jquery.min.js"></script>
+  <!-- Form Validation -->
+  <script src="plugins/form-validation/jquery.form.js"></script>
+  <script src="plugins/form-validation/jquery.validate.min.js"></script>
+  <!-- slick slider -->
+  <script src="plugins/slick/slick.min.js"></script>
+  <!-- bootstrap js -->
+  <script src="plugins/bootstrap/bootstrap.min.js"></script>
+  <!-- wow js -->
+  <script src="plugins/wow-js/wow.min.js"></script>
+  <!-- slider js -->
+  <script src="plugins/slider/slider.js"></script>
+  <!-- Fancybox -->
+  <script src="plugins/facncybox/jquery.fancybox.js"></script>
+  <!-- template main js -->
+  <script src="js/main.js"></script>
+</body>
+
+</html>

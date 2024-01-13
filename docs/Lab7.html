@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+
+<!--
+ // WEBSITE: https://themefisher.com
+ // TWITTER: https://twitter.com/themefisher
+ // FACEBOOK: https://www.facebook.com/themefisher
+ // GITHUB: https://github.com/themefisher/
+-->
+
+<html class="no-js">
+
+<head>
+  <!-- Basic Page Needs
+        ================================================== -->
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="icon" href="favicon.ico">
+  <title>Julian Prieto | Lab 7</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="">
+  <!-- Mobile Specific Metas
+        ================================================== -->
+  <meta name="format-detection" content="telephone=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <!-- Template CSS Files
+        ================================================== -->
+  <!-- Twitter Bootstrs CSS -->
+  <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
+  <!-- Ionicons Fonts Css -->
+  <link rel="stylesheet" href="plugins/ionicons/ionicons.min.css">
+  <!-- animate css -->
+  <link rel="stylesheet" href="plugins/animate-css/animate.css">
+  <!-- Hero area slider css-->
+  <link rel="stylesheet" href="plugins/slider/slider.css">
+  <!-- slick slider -->
+  <link rel="stylesheet" href="plugins/slick/slick.css">
+  <!-- Fancybox -->
+  <link rel="stylesheet" href="plugins/facncybox/jquery.fancybox.css">
+  <!-- hover -->
+  <link rel="stylesheet" href="plugins/hover/hover-min.css">
+  <!-- template main css file -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <!--
+        ==================================================
+        Header Section Start
+        ================================================== -->
+  <section class="top-bar animated-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="index.html">
+              <!-- <img class="logo" src="./images/logo.jpg" alt="logo"> -->
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="index.html">Home
+                    <span class="sr-only">(current)</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="about.html">About</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--
+==================================================
+Global Page Section Start
+================================================== -->
+  <section class="global-page-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="block">
+            <h2>Lab 7: Kalman Filter</h2>
+            <div class="portfolio-meta">
+              <span>March 29th, 2023</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/#Page header-->
+
+  <!-- work details part start -->
+  <section class="work-single">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div style="display: flex; justify-content: center;" class="work-single-image">
+            <!-- Work Single Image -->
+            <img style="height: 330px" src="images\Kfthumbnail.jpg" alt="work-single-image">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <!-- work single Content -->
+          <div class="work-single-content">
+            <h2 style=" text-align: center">
+              INTRODUCTION
+            </h2>
+            <p>One key limiter of the speed of our robot so far is the time of flight sensors. At higher speeds, the
+              sensors can't update fast enough to keep up with the changes. To fix this,
+              I'll take a step away from deterministic robotics and embrace the probabilistic world we live in. Through
+              many informative lectures, I've learned that one of the best ways to make problamatic sensors better is to
+              implement a Kalman Filter.
+              This filter takes a model determined and derived from simple dynamics, and averages this model against the
+              numbers I'll gather from my sensors. This means the bot is about to infer its distance even when it can't
+              read its sensors. To do this, I'll be following the helpful instructions
+              found in <a href="https://cei-lab.github.io/FastRobots-2023/Lab7.html">lab 7</a>.
+            </p>
+
+            <h2 style="text-align: center"> INITIAL CONDITIONS</h2>
+            <p>
+              In order to build our model, we need to estimate just how much inertia the bot has and how much drag
+              forces it experiences (friction included). To do this, I run my bot at about 80% speed toward the wall and
+              stop just before hitting it.
+              Below are the gathered graphs.
+            </p>
+            <img style="width: 350px" src="lab7folder\rawDistancedata.PNG">
+            <img style="width: 350px" src="lab7folder\DistanceAndVelocity.PNG">
+            <img style="width: 350px" src="lab7folder\motorpower.PNG">
+            <blockquote>Left: Raw distance data collected by sensors as fast as possible. <br> Middle: Extrapolated
+              distance and speed.<br> Right: Input motor power as a percentage of total power.</blockquote>
+            <img style="height: 25px"
+              src="https://render.githubusercontent.com/render/math?math=d = drag = \frac{u}{\dot{x}}">
+            <br>
+            <br>
+            <img style="height: 40px"
+              src="https://render.githubusercontent.com/render/math?math=m = mass = \frac{-dt_{0.9}}{ln(1-0.9)}">
+            <p>
+              Using the above equations and the data gathered, the mass and drag force of the system can be determined
+              and we can build the system's state space.
+            </p>
+            <img style="height: 300px" src="lab7folder\settlingStateSpace.PNG">
+            <p>
+              Assuming the final value of speed is approximately steady state, I can determine that the 90% rise time
+              happens at approximately .898 seconds,
+              meaning that:<br> Drag = 0.451 N <br> Mass = 0.176 Kg
+            </p>
+            <p>
+              The state space equation for this system is as follows:
+            </p>
+            <img style="height: 30px" src="lab7folder\statespaceeq.PNG">
+            <p>
+              where A, B, and x are
+            </p>
+            <img style="height: 50px" src="lab7folder\Amatrix.PNG">
+            <img style="height: 50px" src="lab7folder\Bmatrix.PNG">
+            <img style="height: 50px" src="lab7folder\xmatri.PNG">
+
+            <h2 style="text-align: center">KALMAN FILTER SANITY CHECK</h2>
+            <p>
+              The Kalman filter works by updating a state, x, that contains estimates of the current position x[0] and
+              speed x[1] and a sigma that holds the current uncertainty. To start, I need to initialize some starting
+              uncertainty on each value in the state.
+              To test that I did the right algorithm I can run the Kalman Filter on any distance data that I've
+              collected so far.
+              Below is the same distance data
+              with kalman filter estimates overlayed on it (dots are the values that the bot would see) followed by the code used.
+            </p>
+            <img style="width: 350px" src="lab7folder\workingKF.PNG">
+            <script src="https://gist.github.com/Julian-Prieto67/0388d745634cdef0e0074a8acbc6a649.js"></script>
+            <p>
+              The uncertainties used as the basis of the estimate can also be seen in the code. Changing these
+              uncertainties mean the Kalman filter will weight inputs differently. Increasing sigma 1 or 2 results in
+              this (σ<sub>1</sub> = 100 σ<sub>2</sub> = 100 σ<sub>3</sub> = 1).
+            </p>
+            <img style="width: 350px" src="lab7folder\distrustmodel.PNG">
+            <p>
+              By making the model uncertainties so high, we're essentially saying there is a high probability that the
+              model
+              we made is inaccurate. By doing so, the filter trusts the sensor readings the most. This can be bad at the first and last time
+              steps where the model could be best used to interpolate points. By increasing sigma 3
+              we see
+              the following. (σ<sub>3</sub> = 100 σ<sub>1</sub> = 1 σ<sub>2</sub> = 1)
+            </p>
+            <img style="width: 350px" src="lab7folder\sigma3100.PNG">
+            <p>
+              The Kalman Filter now distrusts the sensor readings. After receiving a lot of sensor readings, the model will eventually adjust itself, 
+              however, focusing on our model will cause the filter to lag behind the sensor quite a bit. 
+            </p>
+            <h2 style="text-align: center">IMPLEMENTATION</h2>
+            <p>
+              So far, all this implementation had been done on jupyter labs with previously collected sensor data and
+              plenty of aid from Professor Kirsten, Anya Prabowo, Jonathan Jaramillo, and helpful tips from students.
+              In order to make use of this algorithm, I had to implement it myself on the robot through Arduino.
+              Luckilly for me, I've taken note that the filter itself is pretty robust. It can correct for most
+              inaccuracies I might give it. 
+            </p>
+            <script style="Gist; max-height: 250px; overflow-y: auto"
+              src="https://gist.github.com/Julian-Prieto67/eb55bbee80c7eb647b9c7a284f52088a.js"></script>
+            <link rel="stylesheet" href="https://github.githubassets.com/assets/gist-embed-3f9a3834048b.css">
+
+            <img style="width: 350px" src="lab7folder\KfData.PNG">
+            <img style="width: 350px" src="lab7folder\closer_look.PNG">
+            <p> 
+              The above left is the result of the Kalman Filter in action on the stunt from lab 6.
+              The Kalman filter does a fairly good job of interpolating data points between time of 
+              flight readings coming up to the wall (closer look on the right) and afterwards the model struggles to 
+              keep up with the random readings invoked by turning around. Below is 
+              a video showing just that. 
+            </p>
+
+            <iframe width="320" height="560" src="https://www.youtube.com/embed/XCPPsZ7TE6k" title="Lab 7 and 8: Stunt with KF!" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            
+            <h2 style="text-align: center">CONCLUSION</h2>
+            <p>
+              The Kalman filter is an excellent tool for fusing sensors with reality. Being able to use models from
+              system dynamics to correct noisy sensor data has been my favorite subject-crossover ever and after
+              implementing the algorithm myself on the arduino, I'm confident its implementation will benefit the robot.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- work details part end -->
+
+  <section class="works works-fit">
+    <div class="container">
+      <h2 class="subtitle">Other Labs</h2>
+      <div class="row">
+        <div class="col-md-3 col-sm-6">
+          <figure class="wow fadeInLeft animated portfolio-item animated" data-wow-duration="300ms" data-wow-delay="0ms"
+            style="visibility: visible; animation-duration: 300ms; -webkit-animation-duration: 300ms; animation-delay: 0ms; -webkit-animation-delay: 0ms; animation-name: fadeInLeft; -webkit-animation-name: fadeInLeft;">
+            <div class="img-wrapper">
+              <img src="images/lab5prof.png" class="img-fluid" alt="portfolio items" style="height: 330px">
+              <div class="overlay">
+                <div class="buttons">
+                  <a target="_blank" href="Lab5.html">Details</a>
+                </div>
+              </div>
+            </div>
+            <figcaption>
+              <h4>
+                <a href="Lab5.html">
+                  Lab 5: Motor Control
+                </a>
+              </h4>
+              <p>
+                Moving forward among other directions.
+              </p>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+          <figure class="wow fadeInLeft animated animated" data-wow-duration="300ms" data-wow-delay="300ms"
+            style="visibility: visible; animation-duration: 300ms; -webkit-animation-duration: 300ms; animation-delay: 300ms; -webkit-animation-delay: 300ms; animation-name: fadeInLeft; -webkit-animation-name: fadeInLeft;">
+            <div class="img-wrapper">
+              <img src="images/lab6.png" class="img-fluid" alt="portfolio items" style="height: 330px">
+              <div class="overlay">
+                <div class="buttons">
+                  <a target="_blank" href="Lab6.html">Details</a>
+                </div>
+              </div>
+            </div>
+            <figcaption>
+              <h4>
+                <a href="Lab6.html">
+                  Lab 6: PID Control
+                </a>
+              </h4>
+              <p>
+                Using gain constants to control angle.
+              </p>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+          <figure class="wow fadeInLeft animated animated" data-wow-duration="300ms" data-wow-delay="300ms"
+            style="visibility: visible; animation-duration: 300ms; -webkit-animation-duration: 300ms; animation-delay: 300ms; -webkit-animation-delay: 300ms; animation-name: fadeInLeft; -webkit-animation-name: fadeInLeft;">
+            <div class="img-wrapper">
+              <img src="images\thumbnail8.png" class="img-fluid" alt="" style="height: 330px">
+              <div class="overlay">
+                <div class="buttons">
+                  <a target="_blank" href="Lab8.html">Details</a>
+                </div>
+              </div>
+            </div>
+            <figcaption>
+              <h4>
+                <a href="Lab8.html">
+                  Lab 8: Stunts!
+                </a>
+              </h4>
+              <p>
+                It's a stunt!
+              </p>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+          <figure class="wow fadeInLeft animated animated" data-wow-duration="300ms" data-wow-delay="600ms"
+            style="visibility: visible; animation-duration: 300ms; -webkit-animation-duration: 300ms; animation-delay: 600ms; -webkit-animation-delay: 600ms; animation-name: fadeInLeft; -webkit-animation-name: fadeInLeft;">
+            <div class="img-wrapper">
+              <img src="images/lines.PNG" class="img-fluid" alt="" style="height: 330px">
+              <div class="overlay">
+                <div class="buttons">
+                  <a target="_blank" href="Lab9.html">Details</a>
+                </div>
+              </div>
+            </div>
+            <figcaption>
+              <h4>
+                <a href="Lab9.html">
+                  Lab 9: Mapping
+                </a>
+              </h4>
+              <p>
+                Using transformation matrices and TOF data to map a room.
+              </p>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <!-- Template Javascript Files
+	================================================== -->
+  <!-- jquery -->
+  <script src="plugins/jQurey/jquery.min.js"></script>
+  <!-- Form Validation -->
+  <script src="plugins/form-validation/jquery.form.js"></script>
+  <script src="plugins/form-validation/jquery.validate.min.js"></script>
+  <!-- slick slider -->
+  <script src="plugins/slick/slick.min.js"></script>
+  <!-- bootstrap js -->
+  <script src="plugins/bootstrap/bootstrap.min.js"></script>
+  <!-- wow js -->
+  <script src="plugins/wow-js/wow.min.js"></script>
+  <!-- slider js -->
+  <script src="plugins/slider/slider.js"></script>
+  <!-- Fancybox -->
+  <script src="plugins/facncybox/jquery.fancybox.js"></script>
+  <!-- template main js -->
+  <script src="js/main.js"></script>
+</body>
+
+</html>
