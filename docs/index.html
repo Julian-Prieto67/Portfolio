@@ -47,7 +47,7 @@
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
-
+    
 <!--
         ==================================================
         Header Section Start
@@ -55,68 +55,35 @@
 <section class="top-bar animated-header">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-12" style = "display: flex; justify-content: center;">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <a class="navbar-brand" href="index.html">
                         <!-- <img class="logo" src="./images/logo.jpg" alt="logo"> -->
                         <span>JULIAN PRIETO | Portfolio</span>
                     </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="index.html">Home
-                                    <span class="sr-only">(current)</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="about.html">About</a>
-                            </li> 
-                        </ul>
-                    </div>
                 </nav>
             </div>
         </div>
     </div>
 </section>
+<!-- Section with 3 pictures side by side -->
 
-<!--
-==================================================
-Slider Section Start
-================================================== -->
-<section id="hero-area">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 text-center">
-        <div class="block wow fadeInUp" data-wow-delay=".3s">
-
-          <!-- Slider -->
-          <section class="cd-intro">
-            <h1 class="wow fadeInUp animated cd-headline slide" data-wow-delay=".4s">
-              <span>HELLO, MY NAME IS JULIAN</span><br>
-              <span>WELCOME TO </span><br>
-              <span class="cd-words-wrapper">
-                <b class="is-visible special-four">FAST ROBOTS</b>
-                <b>FAST</b>
-                <b>ROBOTS</b>
-              </span>
-            </h1>
-          </section> <!-- cd-intro -->
-          <!-- /.slider -->
-          <h2 class="wow fadeInUp animated" data-wow-delay=".6s">
-            <strong> THIS WEBPAGE DISPLAYS THE WORK I'VE DONE IN ECE 4160: FAST ROBOTS</strong>
-          </h2>
-        </div>
-      </div>
+<section id="gallery" style="padding-top: 100px;"></section>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <img src="portfolio pics\IMG_6878.JPG" alt="Embodied intelligence robot" style="max-width: 100%; height: auto;">
+    </div>
+    <div class="col-md-6">
+      <img src="portfolio pics\IMG_9826.JPG" alt="Me with a drill" style="max-width: 100%; height: auto;">
+    </div>
+    <div class="col-md-3">
+      <img src="images\lab5prof.png" alt="picture 3" style="max-width: 100%; height: auto;">
     </div>
   </div>
+</div>
 </section>
-<!--/#main-slider-->
-
+<hr style="border-top: 1px solid #ccc;">
 <!--
 ==================================================
 About Section Start
@@ -126,13 +93,14 @@ About Section Start
     <div class="row">
       <div class="col-md-6 col-sm-6">
         <div class="block wow fadeInLeft" data-wow-delay=".3s" data-wow-duration="500ms">
+            <h1 style="font-family: 'Roboto', sans-serif;">
+            Julian Prieto
           <h2>
             ABOUT ME
           </h2>
           <p>
-            Hello, my name is Julian Prieto. I'm currently studying mechanical engineering as an undergraduate at Cornell University.
-            I believe that robotics is the future and that's why I'm doing all I can to learn about the field. 
-          </p>
+            Hello! My name is Julian Prieto, and I'm a recent graduate from the Master of Engineering Mechanical Engineering program at Cornell University. To me, robotics embodies the intersection of creativity, problem-solving, and engineering. It requires people to identify challenges in the world, systematically develop solutions, and then iterate until the design is both elegant and effective. I love that blend of theory and hands-on work and nothing makes me happier than creating a well designed system.
+          </p>  
         </div>
 
       </div>
@@ -154,30 +122,30 @@ Portfolio Section Start
 <section id="works" class="works">
   <div class="container">
     <div class="section-heading">
-      <h1 class="title wow fadeInDown" data-wow-delay=".3s">LABS</h1>
+      <h1 class="title wow fadeInDown" data-wow-delay=".3s">Projects</h1>
       <p class="wow fadeInDown" data-wow-delay=".5s">
-        Here are the compiled reports of each lab for ECE 4160
+        Here are some projects that I have worked on.
       </p>
     </div>
     <div class="row">
       <div class="col-md-4 col-sm-6">
         <figure class="wow fadeInLeft animated portfolio-item" data-wow-duration="500ms" data-wow-delay="0ms">
           <div class="img-wrapper">
-            <img src="images/portfolio/lab1-boardpic.jpeg" class="img-fluid" alt="this is a title">
+            <img src="C:\Users\juls6\Documents\GitHub\Portfolio\docs\portfolio pics\shapechangebot.JPG" class="img-fluid" alt="Lab robot picture">
             <div class="overlay">
               <div class="buttons">
-                <a target="_blank" href="lab1.html">Details</a>
+                <a target="_blank" href="Research.html">Details</a>
               </div>
             </div>
           </div>
           <figcaption>
             <h4>
-              <a href="lab1.html">
-                Lab 1: Setting Up
+              <a href="Research.html">
+                Embodied Intelligence Control Lab
               </a>
             </h4>
             <p>
-              Setting up the Artemis Board
+              Details on my work as part of Kirstin Petersen's Collective Embodied Intelligence lab 
             </p>
           </figcaption>
         </figure>
@@ -185,21 +153,22 @@ Portfolio Section Start
       <div class="col-md-4 col-sm-6">
         <figure class="wow fadeInLeft animated" data-wow-duration="500ms" data-wow-delay="300ms">
           <div class="img-wrapper">
-            <img  src="images/bluetooth.png" class="img-fluid" alt="this is a title" style = "height: 330px">
+            <img  src="C:\Users\juls6\Documents\GitHub\Portfolio\docs\portfolio pics\IMG_9824.JPG" class="img-fluid" alt="Autonomous Foosball table picture">
             <div class="overlay">
               <div class="buttons">
-                <a target="_blank" href="Lab2.html">Details</a>
+                <a target="_blank" href="Foos.html">Details</a>
               </div>
             </div>
           </div>
           <figcaption>
             <h4>
-              <a href="Lab2.html">
-                Lab 2: Bluetooth
+              <a href="Foos.html">
+                The Autonomous Foosball Table
               </a>
             </h4>
             <p>
-              Connecting the Artemis to an off-board computer 
+              The culmination of my robotics knowledge put to the test through a fun lesson in automation.This project
+              was a solo endeavor and was started entirely from scratch.
             </p>
           </figcaption>
         </figure>
@@ -207,227 +176,25 @@ Portfolio Section Start
       <div class="col-md-4 col-sm-6">
         <figure class="wow fadeInLeft animated" data-wow-duration="500ms" data-wow-delay="300ms">
           <div class="img-wrapper">
-            <img style = "height: 330px" src="images/lab3cover.png" class="img-fluid" alt="">
+            <img src="C:\Users\juls6\Documents\GitHub\Portfolio\docs\images\thumbnail8.png" class="img-fluid" alt="Fast robots picture">
             <div class="overlay">
               <div class="buttons">
-                <a target="_blank" href="Lab3.html">Details</a>
+                <a target="_blank" href="FastRobotsPage.html">Details</a>
               </div>
             </div>
           </div>
           <figcaption>
             <h4>
-              <a href="Lab3.html">
-                Lab 3: Time of Flight 
+              <a href="FastRobotsPage.html">
+                Fast Robots: The Fundamentals
               </a>
             </h4>
             <p>
-              Implementing and Testing Time of Flight Sensors
+              A project worked on to demonstrate key concepts in robotics such as sensor fusion, Bayesian filtering, and PID control.
             </p>
           </figcaption>
         </figure>
       </div>
-      <div class="col-md-4 col-sm-6">
-        <figure class="wow fadeInLeft animated" data-wow-duration="500ms" data-wow-delay="600ms">
-          <div class="img-wrapper">
-            <img src="images/Lab_4_profile.png" class="img-fluid" alt="" style = "height: 330px">
-            <div class="overlay">
-              <div class="buttons">
-                <a target="_blank" href="Lab4.html">Details</a>
-              </div>
-            </div>
-          </div>
-          <figcaption>
-            <h4>
-              <a href="Lab4.html">
-                Lab 4: The IMU
-              </a>
-            </h4>
-            <p>
-              Connecting the artemis to reality.
-            </p>
-          </figcaption>
-        </figure>
-      </div>
-      <div class="col-md-4 col-sm-6">
-        <figure class="wow fadeInLeft animated" data-wow-duration="500ms" data-wow-delay="900ms">
-          <div class="img-wrapper">
-            <img src="images\lab5prof.png" class="img-fluid" alt="" style = "height: 330px">
-            <div class="overlay">
-              <div class="buttons">
-                <a target="_blank" href="Lab5.html">Details</a>
-              </div>
-            </div>
-          </div>
-          <figcaption>
-            <h4>
-              <a href="Lab5.html">
-                Lab 5: Motor Control
-              </a>
-            </h4>
-            <p>
-              Moving forward among other directions.
-            </p>
-          </figcaption>
-        </figure>
-      </div>
-      <div class="col-md-4 col-sm-6">
-        <figure class="wow fadeInLeft animated" data-wow-duration="500ms" data-wow-delay="1200ms">
-          <div class="img-wrapper">
-            <img src="images/lab6.png" class="img-fluid" alt="" style = "height: 330px">
-            <div class="overlay">
-              <div class="buttons">
-                <a target="_blank" href="Lab6.html">Details</a>
-              </div>
-            </div>
-          </div>
-          <figcaption>
-            <h4>
-              <a href="Lab6.html">
-                Lab 6: PID Control 
-              </a>
-            </h4>
-            <p>
-              Using gain constants to control angle.
-            </p>
-          </figcaption>
-        </figure>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-4 col-sm-6">
-        <figure class="wow fadeInLeft animated portfolio-item" data-wow-duration="500ms" data-wow-delay="0ms">
-          <div class="img-wrapper">
-            <img src="images\Kfthumbnail.jpg" class="img-fluid" alt="this is thumbnail" style = "height: 330px">
-            <div class="overlay">
-              <div class="buttons">
-                <a target="_blank" href="Lab7.html">Details</a>
-              </div>
-            </div>
-          </div>
-          <figcaption>
-            <h4>
-              <a href="Lab7.html">
-                Lab 7: Kalman Filter
-              </a>
-            </h4>
-            <p>
-              Fixing noisy sensors with statistics!
-            </p>
-          </figcaption>
-        </figure>
-      </div>
-      <div class="col-md-4 col-sm-6">
-        <figure class="wow fadeInLeft animated" data-wow-duration="500ms" data-wow-delay="300ms">
-          <div class="img-wrapper">
-            <img  src="images\thumbnail8.png" class="img-fluid" alt="this is a title" style = "height: 330px">
-            <div class="overlay">
-              <div class="buttons">
-                <a target="_blank" href="Lab8.html">Details</a>
-              </div>
-            </div>
-          </div>
-          <figcaption>
-            <h4>
-              <a href="Lab8.html">
-                Lab 8: Stunts!
-              </a>
-            </h4>
-            <p>
-              It's a stunt!
-            </p>
-          </figcaption>
-        </figure>
-      </div>
-      <div class="col-md-4 col-sm-6">
-        <figure class="wow fadeInLeft animated" data-wow-duration="500ms" data-wow-delay="300ms">
-          <div class="img-wrapper">
-            <img style = "height: 330px" src="images\lines.PNG" class="img-fluid" alt="">
-            <div class="overlay">
-              <div class="buttons">
-                <a target="_blank" href="Lab9.html">Details</a>
-              </div>
-            </div>
-          </div>
-          <figcaption>
-            <h4>
-              <a href="Lab9.html">
-                Lab 9: Mapping
-              </a>
-            </h4>
-            <p>
-              Using transformation matrices and TOF data to map a room. 
-            </p>
-          </figcaption>
-        </figure>
-      </div>
-      <div class="col-md-4 col-sm-6">
-        <figure class="wow fadeInLeft animated" data-wow-duration="500ms" data-wow-delay="600ms">
-          <div class="img-wrapper">
-            <img src="lab10folder\lab10cover.PNG" class="img-fluid" alt="" style = "height: 330px">
-            <div class="overlay">
-              <div class="buttons">
-                <a target="_blank" href="Lab10.html">Details</a>
-              </div>
-            </div>
-          </div>
-          <figcaption>
-            <h4>
-              <a href="Lab10.html">
-                Lab 10: Localization (sim)
-              </a>
-            </h4>
-            <p>
-              Using a Bayesian filter, localize the location of a virtual robot. 
-            </p>
-          </figcaption>
-        </figure>
-      </div>
-      <div class="col-md-4 col-sm-6">
-        <figure class="wow fadeInLeft animated" data-wow-duration="500ms" data-wow-delay="900ms">
-          <div class="img-wrapper">
-            <img src="images\Lab 11 cover.png" class="img-fluid" alt="" style = "height: 330px">
-            <div class="overlay">
-              <div class="buttons">
-                <a target="_blank" href="Lab11.html">Details</a>
-              </div>
-            </div>
-          </div>
-          <figcaption>
-            <h4>
-              <a href="Lab11.html">
-                Lab 11: Localization (real)
-              </a>
-            </h4>
-            <p>
-              Using a Bayesian filter, localize the location of a real robot.
-            </p>
-          </figcaption>
-        </figure>
-      </div>
-      <div class="col-md-4 col-sm-6">
-        <figure class="wow fadeInLeft animated" data-wow-duration="500ms" data-wow-delay="1200ms">
-          <div class="img-wrapper">
-            <img src="images\lab12cover.PNG" class="img-fluid" alt="" style = "height: 330px">
-            <div class="overlay">
-              <div class="buttons">
-                <a target="_blank" href="Lab12.html">Details</a>
-              </div>
-            </div>
-          </div>
-          <figcaption>
-            <h4>
-              <a href="Lab12.html">
-                Lab 12: Path Planning and Execution
-              </a>
-            </h4>
-            <p>
-              Putting everything together to navigate a map.
-            </p>
-          </figcaption>
-        </figure>
-      </div>
-    </div>
-  </div>
 </section> <!-- #works -->
 
 	<!-- Template Javascript Files

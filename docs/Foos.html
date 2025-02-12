@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<!--
+ // WEBSITE: https://themefisher.com
+ // TWITTER: https://twitter.com/themefisher
+ // FACEBOOK: https://www.facebook.com/themefisher
+ // GITHUB: https://github.com/themefisher/
+-->
+
+<html class="no-js">
+    <head>
+        <!-- Basic Page Needs
+        ================================================== -->
+        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="icon" href="favicon.ico">
+        <title>Julian Prieto | Autonomous Foosball Table</title>
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <meta name="author" content="">
+        <!-- Mobile Specific Metas
+        ================================================== -->
+        <meta name="format-detection" content="telephone=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        
+        <!-- Template CSS Files
+        ================================================== -->
+        <!-- Twitter Bootstrs CSS -->
+        <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
+        <!-- Ionicons Fonts Css -->
+        <link rel="stylesheet" href="plugins/ionicons/ionicons.min.css">
+        <!-- animate css -->
+        <link rel="stylesheet" href="plugins/animate-css/animate.css">
+        <!-- Hero area slider css-->
+        <link rel="stylesheet" href="plugins/slider/slider.css">
+        <!-- slick slider -->
+        <link rel="stylesheet" href="plugins/slick/slick.css">
+        <!-- Fancybox -->
+        <link rel="stylesheet" href="plugins/facncybox/jquery.fancybox.css">
+        <!-- hover -->
+        <link rel="stylesheet" href="plugins/hover/hover-min.css">
+        <!-- template main css file -->
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body> <!--
+        ==================================================
+        Header Section Start
+        ================================================== -->
+        <section class="top-bar animated-header">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                  <a class="navbar-brand" href="index.html">
+                    <!-- <img class="logo" src="./images/logo.jpg" alt="logo"> -->
+                    <span>JULIAN PRIETO | AUTONOMOUS FOOSBALL</span>
+                  </a>
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+      
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                      <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home
+                          <span class="sr-only">(current)</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </section>
+<!--
+==================================================
+Global Page Section Start
+================================================== -->
+<section class="global-page-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="block">
+          <h2>The Autonomous Foosball Table</h2>
+          <div class="portfolio-meta">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--/#Page header-->
+
+<!-- work details part start -->
+<section class="work-single">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div style="display: flex; justify-content: center;"class="work-single-image">
+          <!-- Work Single Image -->
+          <img style="height: 330px"src="portfolio pics\IMG_9823.JPG" alt="work-single-image">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <!-- work single Content -->
+        <div class="work-single-content">
+            <h2>
+            INTRODUCTION 
+          </h2>
+          <hr>
+          <p>
+            This project came together over the course of three semesters of work and was an idea I’ve had for around a decade. I succeeded in creating a foosball table from scratch with robotic elements that could play against a person. I believe that automation perfectly emulates the aspects of engineering that I love most. Automation requires a closer look at a problem and its elements. The whole task is a puzzle where you design each piece to complete the bigger picture. 
+Tackling this problem required me to identify the fundamental components of the task and use what I know about programming, actuators, electronics, structural mechanics, and microcontrollers to design my own system. My design uses a laptop to process video from a gopro underneath the table to find the ball and send instructions to an arduino that can manipulate the rods to play the game. The following mechanical, electrical, and programming sections outline how I was able to effectively succeed at the following objectives.
+          </p>
+            <div class="row">
+              <div class="col-lg-4 col-md-4 col-sm-4">
+                <div style="display: flex;">
+                  <blockquote style = "color: black; background-color: #02bdd5; border-radius: 10px;">
+                    <h4>Objectives</h4>  
+                    <hr>
+                    <summary style = "cursor:auto"> Create a foosball table with a transparent field</summary>
+                    <summary style = "cursor:auto"> Move each rod independently in two degrees of freedom</summary>
+                    <summary style = "cursor:auto"> Find and predict the motion of the ball</summary>
+                    <summary style = "cursor:auto"> Coordinate the position and angle of the rods with real-time ball data</summary>
+                  </blockquote>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4">
+                <img style="max-width: 110%; height: auto ;" src="portfolio pics\puzzle.png" alt="Puzzle representation of Electrical, Mechanical, and Programming elements">
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4">
+                <blockquote style = "color: black; background-color: #02bcd5; border-radius: 10px;">
+                  <h4>Technical Overview</h4>
+                  <p> A brief overview of the skills, tools, and methods used to complete this project</p>  
+                  <hr>
+                  <summary style = "cursor:auto"> Computer Vision (OpenCV)</summary>
+                  <summary style = "cursor:auto"> Multithreading and Multiprocessing</summary>
+                  <summary style = "cursor:auto"> Static Stress Analysis</summary>
+                  <summary style = "cursor:auto"> Rapid prototyping and iterative design</summary>
+                  <summary style = "cursor:auto"> Laser cutting</summary>
+                  <summary style = "cursor:auto"> 3D Printing</summary>
+                  <summary style = "cursor:auto"> Wire Management</summary>
+                  <summary style = "cursor:auto"> Soldering</summary>
+                  <hr>
+                  <p style = "text-align: center;">Programming Languages</p>
+                  <summary style = "cursor:auto"> Python</summary>
+                  <summary style = "cursor:auto"> C (Arduino IDE)</summary>
+                </blockquote>
+              </div>
+            </div>
+
+          <h2> MECHANICAL</h2>
+          <hr>
+          <p>  
+            This section encompasses all the physical parts of the project. This includes the physical table construction and the chassis that would mount motors for the rods, a power supply, the arduino, and the computer everything would run on. Constructing everything within the time frame I’d laid out for myself meant rapid iterations on dozens of CAD models and design choices.
+          </p>
+          <h2 style="text-align: center">THE TABLE</h2> 
+          <p>
+            I designed and built the table from scratch, focusing on both aesthetics and functionality. 
+            The rods, milled from ½” steel, are custom-built, and most accessory components like foosmen, 
+            bearings, and ball funnels are all 3D printed. Accessories that weren't 3D printed were handmade like the handles.
+            The table itself is cut from ¾” plywood. Notably, 
+            the field is a plate of ¼” tempered glass, allowing an unobstructed view from the camera placed underneath. I produced this 
+            table as part of my senior design project for my undergraduate degree in Mechanical Engineering at Cornell University and partnered with 
+            Katherine Knect to accomplish this. We met multiple times a week to discuss the project and work on the table. Our full detailed report of the tables construction can be found below. 
+          </p>
+          <div style="display: flex; justify-content: center;">
+            <embed src="portfolio pics\Foosball_Table_Design_Report.pdf" width="500" height="375" type="application/pdf">
+          </div>
+          <h2 style="text-align: center">Why Glass?</h2>
+          <p>
+            I'm not the first to try and automate a foosball table so my first step was to look at solutions that already existed and see what I could learn from them.
+              I came across a few projects that were successful and the biggest hurdle that seemed to plague the projects was the computer vision aspect. 
+            When an overhead camera was used, the ball occasionally becomes occluded by the foosmen or the rods. This meant that the vision software had to rely on predictions
+            at the only position where unpredictable contact is possible. To get around this, I put the camera underneath the table with a field that is see through. Not 
+            every clear field would work though. If I had used acrylic the sheet would be really thick or need supports that would occlude the ball anyway. Acrylic also gets scratched easily. Tempered glass was a much better fit.
+            It's incredibly strong for a relatively small thickness and doesn't flex, so the image is clear.
+          </p>
+          <div style="display: flex; justify-content: center; padding-bottom: 50px;">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style = "max-width:50%">
+              <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+              </ol>
+              <div class="carousel-inner">
+                <div class="carousel-item active" style = "max-width: auto; max-height: 100%">
+                  <img class="d-block w-100" src="portfolio pics\real_table.jpg" alt="Table wide shot">
+                </div>
+                <div class="carousel-item">
+                  <img class="d-block w-100" src="portfolio pics\foosmencloseup.jpg" alt="Foosmen closeup">
+                </div>
+                <div class="carousel-item">
+                  <img class="d-block w-100" src="portfolio pics\Glass_pic.jpg" alt="glass bottom">
+                </div>
+                <div class="carousel-item">
+                  <img class="d-block w-100" src="portfolio pics\handles.jpg" alt="handles">
+                </div>
+              </div>
+              <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+          </div>
+          
+          <h2>Automation Hardware </h2>
+          <p>
+
+          </p>
+          <div class="col-lg-12" style="display: flex; justify-content: center;">
+            <img style="max-width: 50%;" src="portfolio pics\Table tablepic.jpg" alt="hardware">
+          </div>
+          <h4 style="text-align: center">Hardware Mounting</h4>
+          <p>
+            Most of the hardware and wires in this project are mounted to a wood shelf. This was the best way to quickly mount and test components. It gave me a lot of flexibility when deciding the final layout of all the components and made the system easy to convert back into a normal foosball table. 
+          </p>
+          <div class="col-lg-12" style="display: flex; justify-content: center;">
+            <img style="max-width: 50%;" src="images\Btense.JPG" alt="hardware">
+          </div>
+          <h4 style="text-align: center">Rod Control</h4>
+          <p>
+            Each rod on the table has 2 degrees of freedom, they can rotate and slide. I control the sliding motion with stepper motors and the rotation with a brushless DC motor. Pre-built linear actuators are expensive, so I did my best to replicate them using linear rails, GT2 belts, and pulleys I had from a previous project. This was the start to a long process of trial and error for smooth linear motion. The biggest culprit I found for any sloppy motion was the tension in the belt. By refining the way I mounted the rails and the connections between each end of the belt I made more progress. If I had to do this part again, I would have designed the rails so that they wouldn’t need so many different parts and in a way that would make all four rods the same, but they do function well enough to succeed in this project.  
+          </p>
+          <div style = "display: flex; justify-content: center;">
+          <iframe width="315" height="560" src="https://www.youtube.com/embed/YKLJoAik8rA" title="Stutter" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
+          <h2>ELECTRICAL</h2>
+          <hr>
+          <h4 style="text-align: center">Why Stepper and BLDC Motors?</h4>
+          <p>
+            BLDC motors are not a common choice for this application but their high instantaneous torque and speed makes them a great fit. Admittedly, I’d never worked with them before which was the biggest factor for my choice to work with them. I knew they would be effective and I needed more experience using them. These BLDC motors are controlled by a Moteus r4.11 controller which acts as both a driver and an encoder. This means that I could control the motor through python and get positional feedback from it in one package. 
+          </p>
+          <p>
+            Contrary to BLDC motors, I’ve worked quite a bit with stepper motors and the precision and speed they operate fit this application perfectly. I had originally hoped to reuse some motors I had from previous projects but ran into new problems as I pushed them to their limits. As stepper motors increase speed, the torque they deliver drops exponentially, which means in order to deliver the high speeds I needed much bigger motors were required. In order to choose the right motors, I performed experiments that gave me the required max torque load and speed at that load. Choosing motors that fit my specifications was an expense I was hoping to avoid but one I realized was worth every penny after I made the switch.
+          </p>
+          <h4 style="text-align: center">Custom Perfboards</h4>
+          <div class="col-lg-12" style="display: flex; justify-content: center;">
+            <img style="max-width: 30%;" src="images\ArduinoShield.JPG" alt="Arduino PerfBoard">
+          </div>
+          <p>
+            I had several Perfboards easily available to me and so designed a homemade arduino shield to facilitate Arduino connections and a smaller LED board to control the lights on the table. The Arduino board allowed easy expansion in functionality if needed in the future and allowed for quick debugging. LEDs were necessary to have on the table because they allowed for consistent lighting and 4 green LEDS on the corners made it easy to identify real world coordinates on the video feed. 
+          </p>
+          <h2>PROMGRAMMING</h2>
+          <hr>
+          <p>
+            The programming portion of the project required a lot more thought than the previous two sections. I had to design essentially three programs that worked as a team.
+          </p>
+          <blockquote style = "color: black; background-color: #02bdd5; border-radius: 10px;">
+            <h4>Programs</h4>  
+            <hr>
+            <summary style = "cursor:auto"> A vision routine to find the ball as quickly and accurately as possible.</summary>
+            <summary style = "cursor:auto"> A control routine to take in the vision data and come up with a gameplan to send data to the arduino. </summary>
+            <summary style = "cursor:auto">  An arduino script to read incoming data from Serial and control four stepper motors.</summary>
+          </blockquote>
+           
+            <h4 style="text-align: center">Vision</h4>
+            <p>
+              The easiest way to find something in a picture is to make it a different color than everything else in the picture and isolate that color in each image, take the center of the isolated mass and then you have a location. This works well under controlled conditions with consistent lighting and no external interference. However, the moment someone with a similarly colored shirt or even their hand enters the frame, this solution fails. After trying and failing to correct this problem by getting different colored balls, blurring the image, and using different camera settings, I eventually found myself looking for other solutions and found template matching.
+            </p>
+            <p>
+              Template matching is perfect for finding objects in a grayscale frame. Template matching works by using a small reference image (essentially a matrix of pixel values) and comparing it to regions in the frame. If the similarity is above 90%, It is recognized as the ball. Although this was much faster than blurring the whole image and isolating the color, it couldn’t be directly applied to a 3-channel video feed. As it turns out, I found a very distinct ball image by isolating the saturation channel in the image. The result was a much faster routine that could identify the ball in a new frame every 33 milliseconds despite interference.
+            </p>
+            <div style = "display: flex; align-items: center;="row">
+              <div class="col-lg-4 col-md-4 col-sm-4">
+                <img style="max-width: 100%; height: auto ;" src="images\normalGrayScale.png" alt="Sample of grayscal image of the field">
+              </div> 
+              <div class="col-lg-4 col-md-4 col-sm-4">
+                <img style="max-width: 100%; height: auto ;" src="images\NEWFrame_0.png" alt="Sample of the saturation channel of the image">
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4">
+                <img style="max-width: 100%; height: auto ;" src="images\Template_25.png" alt="Sample template of the ball">
+              </div>
+            </div>
+              <blockquote>
+                An example of the RGB grayscale image (left), the saturation-channel (middle) and the template used to find the ball (right). 
+              </blockquote>
+            <p>
+              Now that I knew the location of the ball in the image I had to transform it into the corresponding position in real life. With the help of four LEDs at the corners of the table, I was able to find a homography matrix that would transform image coordinates to real coordinates. 
+            </p>
+            <h4 style="text-align: center">Control</h4>
+            <div style=" display: flex; justify-content: center;" class="col-lg-12 col-md-12 col-sm-12">
+              <img style="max-width: 100%; height: auto ;" src="portfolio pics\basicStrategy.png" alt="basic strategy flowchart">
+            </div>
+            <p>
+              With a great foundation seeing the ball, I moved on to playing the game. The simple strategy I employed needed to understand the proximity of the ball to the players and how that position changes in the future. My control algorithm follows the flowchart and can successfully predict the future position of the ball by keeping track of its speed. The routine uses the current position and speed of the ball to find where the ball will go. I can then find what rod is in range at what time and which player on that rod is closest to send the correct location to move each rod. This all happens in about 2 milliseconds which is much faster than the vision routine, so to speed up the whole process, I put them on different processing cores. That way each routine can run as fast as possible to effectively play the game. When the vision routine gets a new ball coordinate, it tells the control routine the new information which it then uses to update rod positions and angles to hit the ball.
+            </p>
+            <div style=" display: flex; justify-content: center;" class="col-lg-12 col-md-12 col-sm-12">
+              <img style="max-width: 100%; height: auto ;" src="portfolio pics\trajectoryDepiction.PNG" alt="Sample trajectory generation">
+            </div>
+            <h4 style="text-align: center">Arduino</h4>
+            <p>
+              The arduino script needs to get data from the laptop, translate the data, and move the stepper motors. Translating data from serial is easy enough and I quickly was able to control steppers from my computer by sending strings with the required positional data. To change speeds I would add “SPD” at the start of the message and to calibrate the motors using the limit switches at the end of their tracks I would send “HOM”. There are libraries like AccelStepper that were able to do quick positional sending and tracking for stepper motors but I ran into a few challenges when I would send information quickly. In the end, I learned a great deal recreating the functionality of the library by hand and had a functioning arduino script that could update the speed of each stepper and their positions slightly faster than the control routine could give them. 
+            </p>
+
+          <hr> 
+          <h2 style="text-align: center">The Future of This Project</h2>
+          <p>
+            This project has been incredibly meaningful to me and has taught me a great deal. It demanded countless hours of coding, recoding, building and rebuilding – each step bringing new challenges and learning opportunities. I intend to continue developing this project into a more sophisticated system. There are still ways that I can speed up the vision routine, make the control system smarter and more accurate at its predictions with localization techniques like Kalman filtering. 
+            </p>
+          <p>
+            Robotics evolves and improves. Every boundary it pushes reveals new limitations that inspire new techniques and solutions. My project has been a testament to this growth and I look forward to taking new steps towards its improvement. 
+          </p>
+          <hr> 
+          <h2 style="text-align: center">My Report</h2>
+          <p>
+            If you would like to read my full report on the project, you can find it below.
+          </p>
+          <div style="display: flex; justify-content: center;">
+            <embed src="portfolio pics\M_Eng_Design_Report.pdf" width="500" height="375" type="application/pdf">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+	<!-- Template Javascript Files
+	================================================== -->
+	<!-- jquery -->
+	<script src="plugins/jQurey/jquery.min.js"></script>
+	<!-- Form Validation -->
+    <script src="plugins/form-validation/jquery.form.js"></script> 
+    <script src="plugins/form-validation/jquery.validate.min.js"></script>
+	<!-- slick slider -->
+	<script src="plugins/slick/slick.min.js"></script>
+	<!-- bootstrap js -->
+	<script src="plugins/bootstrap/bootstrap.min.js"></script>
+	<!-- wow js -->
+	<script src="plugins/wow-js/wow.min.js"></script>
+	<!-- slider js -->
+	<script src="plugins/slider/slider.js"></script>
+	<!-- Fancybox -->
+	<script src="plugins/facncybox/jquery.fancybox.js"></script>
+	<!-- template main js -->
+	<script src="js/main.js"></script>
+ 	</body>
+</html>
