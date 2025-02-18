@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<!--
+ // WEBSITE: https://themefisher.com
+ // TWITTER: https://twitter.com/themefisher
+ // FACEBOOK: https://www.facebook.com/themefisher
+ // GITHUB: https://github.com/themefisher/
+-->
+
+<html class="no-js">
+    <head>
+        <!-- Basic Page Needs
+        ================================================== -->
+        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="icon" href="favicon.ico">
+        <title>Julian Prieto | Dynamics Simulation</title>
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <meta name="author" content="">
+        <!-- Mobile Specific Metas
+        ================================================== -->
+        <meta name="format-detection" content="telephone=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        
+        <!-- Template CSS Files
+        ================================================== -->
+        <!-- Twitter Bootstrs CSS -->
+        <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
+        <!-- Ionicons Fonts Css -->
+        <link rel="stylesheet" href="plugins/ionicons/ionicons.min.css">
+        <!-- animate css -->
+        <link rel="stylesheet" href="plugins/animate-css/animate.css">
+        <!-- Hero area slider css-->
+        <link rel="stylesheet" href="plugins/slider/slider.css">
+        <!-- slick slider -->
+        <link rel="stylesheet" href="plugins/slick/slick.css">
+        <!-- Fancybox -->
+        <link rel="stylesheet" href="plugins/facncybox/jquery.fancybox.css">
+        <!-- hover -->
+        <link rel="stylesheet" href="plugins/hover/hover-min.css">
+        <!-- template main css file -->
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body> <!--
+        ==================================================
+        Header Section Start
+        ================================================== -->
+        <section class="top-bar animated-header">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                  <a class="navbar-brand" href="index.html">
+                    <!-- <img class="logo" src="./images/logo.jpg" alt="logo"> -->
+                    <span>JULIAN PRIETO | DYNAMICS SIMULATION</span>
+                  </a>
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+      
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                      <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home
+                          <span class="sr-only">(current)</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </section>
+<!--
+==================================================
+Global Page Section Start
+================================================== -->
+<section class="global-page-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="block">
+          <h2>n Double Compound Pendulums on a Cart </h2>
+          <div class="portfolio-meta">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--/#Page header-->
+
+<!-- work details part start -->
+<section class="work-single">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div style="display: flex; justify-content: center;"class="work-single-image">
+          <!-- Work Single Image -->
+          <iframe width="511" height="383" src="https://www.youtube.com/embed/K_NKjF7-DSc" title="N = 3 Double Compound Pendulums on a Cart" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <!-- work single Content -->
+        <div class="work-single-content">
+
+          <div style="display: flex; justify-content: center;">
+            <blockquote style = "color: black; background-color: #02bdd5; border-radius: 10px;">
+              <h4>Skills involved</h4>  
+              <hr>
+              <summary style = "cursor:auto"> MATLAB and the Matlab Symbolic Toolbox</summary>
+              <summary style = "cursor:auto"> System Simulation</summary>
+              <summary style = "cursor:auto"> Generalized variables </summary>
+            </blockquote>
+          </div>
+            <h2 style=" text-align: center">
+            Description 
+          </h2>
+          <p> 
+            I was inspired by the strange phenomenon that occurs when multiple metronomes are released while attached to a freely sliding rigid body. The metronomes may start out of sync, but eventually, the bodies all influence each other such that they will oscillate at the same frequency. I was inspired by this phenomenon to create a simulation that could analyze the solution for a double compound pendulum instead. Each pendulum could be represented by two compound rods of mass m<sub>ij</sub> where i takes on all values through n pendulums and j takes on the value 1 or 2 to describe each link. These n double pendulums are rigidly attached to a communal rigid body which moves freely on two massless wheels. 
+          </p>
+          <p> 	
+            This project was done in MATLAB and used the matlab symbolic toolbox to arrive at an equation of motion that described the whole system. I could then plug in various initial conditions that erratically changed the behavior of the animation. Overall, I learned that the double compound pendulum’s inherently chaotic dynamics carried over to this experiment and I didn’t see much synchronous motion. Regardless, this was a great lesson in generalizing dynamic simulations. 
+          </p>
+          
+          <button onclick="downloadFile()">Download Code</button>
+
+          <script>
+            function downloadFile() {
+              // Create a dummy element
+              var link = document.createElement('a');
+              link.href = 'NPendulumSim.zip';
+              link.download = 'NPendulumSim.zip'; 
+              link.click();
+            }
+          </script>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- work details part end -->
+
+
+
+<!-- Footer Section Start -->
+	<!-- Template Javascript Files
+	================================================== -->
+	<!-- jquery -->
+	<script src="plugins/jQurey/jquery.min.js"></script>
+	<!-- Form Validation -->
+    <script src="plugins/form-validation/jquery.form.js"></script> 
+    <script src="plugins/form-validation/jquery.validate.min.js"></script>
+	<!-- slick slider -->
+	<script src="plugins/slick/slick.min.js"></script>
+	<!-- bootstrap js -->
+	<script src="plugins/bootstrap/bootstrap.min.js"></script>
+	<!-- wow js -->
+	<script src="plugins/wow-js/wow.min.js"></script>
+	<!-- slider js -->
+	<script src="plugins/slider/slider.js"></script>
+	<!-- Fancybox -->
+	<script src="plugins/facncybox/jquery.fancybox.js"></script>
+	<!-- template main js -->
+	<script src="js/main.js"></script>
+ 	</body>
+</html>
